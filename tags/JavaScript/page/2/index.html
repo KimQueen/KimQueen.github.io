@@ -152,8 +152,8 @@
     <div class="card">
     
     <div class="card-image">
-        <a href="/2023/10/27/webpack-treeShaking/" class="image is-7by1">
-            <img class="thumbnail" src="/images/tree-2.jpg" alt="webpack-treeShaking">
+        <a href="/2023/10/27/webpack-CSS和file的加载/" class="image is-7by1">
+            <img class="thumbnail" src="/images/green.jpg" alt="webpack-CSS和file的加载">
         </a>
     </div>
     
@@ -171,7 +171,7 @@
                 <span class="level-item has-text-grey">
                     
                     
-                    2 分钟 读完 (大约 351 个字)
+                    6 分钟 读完 (大约 934 个字)
                 </span>
                 
                 
@@ -180,18 +180,24 @@
         
         <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
             
-                <a class="has-link-black-ter" href="/2023/10/27/webpack-treeShaking/">webpack-treeShaking</a>
+                <a class="has-link-black-ter" href="/2023/10/27/webpack-CSS和file的加载/">webpack-CSS和file的加载</a>
             
         </h1>
         <div class="content">
-            <h4 id="添加一个通用模块"><a href="#添加一个通用模块" class="headerlink" title="添加一个通用模块"></a>添加一个通用模块</h4><p>假设我们在项目中添加一个新的通用模块的文件<code>math.js</code>，并且导出了两个函数：</p>
+            <p>我们之前一节都是对一些js的资源进行打包，但是如果我们的项目中还有一些其他的资源呢？比如说：<code>images</code>。
+在<code>webpack</code>中除了可以引入<code>JavaScript</code>，还可以通过<code>loader</code>引入其他类型的文件。主要的实现是使用<code>loader</code>来实现的。<br>加载各类资源用到的<code>module</code></p>
+<ul>
+<li>加载<code>css</code>文件需要 <code>style-loader css-loader</code></li>
+<li>字体和图片需要 <code>file-loader</code></li>
+<li><code>CSV</code>、<code>TSV</code>和<code>XML</code> 需要<code>csv-loader</code>和<code>xml-loader</code></li>
+</ul>
         </div>
         
         
         <div class="level is-mobile">
             <div class="level-start">
                 <div class="level-item">
-                <a class="button is-size-7 is-light" href="/2023/10/27/webpack-treeShaking/#more">阅读更多</a>
+                <a class="button is-size-7 is-light" href="/2023/10/27/webpack-CSS和file的加载/#more">阅读更多</a>
                 </div>
             </div>
         </div>
@@ -328,64 +334,6 @@
     <div class="card">
     
     <div class="card-image">
-        <a href="/2023/10/27/JavaScript的数组/" class="image is-7by1">
-            <img class="thumbnail" src="/images/handle.jpg" alt="JavaScript的数组">
-        </a>
-    </div>
-    
-    <div class="card-content article ">
-        
-        <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
-            <div class="level-left">
-                <time class="level-item has-text-grey" datetime="2023-10-27T04:06:26.049Z">2023-10-27</time>
-                
-                <div class="level-item">
-                <a class="has-link-grey -link" href="/categories/数据结构/">数据结构</a>
-                </div>
-                
-                
-                <span class="level-item has-text-grey">
-                    
-                    
-                    16 分钟 读完 (大约 2349 个字)
-                </span>
-                
-                
-            </div>
-        </div>
-        
-        <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
-            
-                <a class="has-link-black-ter" href="/2023/10/27/JavaScript的数组/">JavaScript的数组</a>
-            
-        </h1>
-        <div class="content">
-            <p>使用数组的目的：数组用来存储一系列同一种数据类型的值。但是在<code>JavaScript</code>中我们可以存储不同类型的值。</p>
-        </div>
-        
-        
-        <div class="level is-mobile">
-            <div class="level-start">
-                <div class="level-item">
-                <a class="button is-size-7 is-light" href="/2023/10/27/JavaScript的数组/#more">阅读更多</a>
-                </div>
-            </div>
-        </div>
-        
-        
-    </div>
-</div>
-
-
-
-
-
-
-
-
-    <div class="card">
-    
-    <div class="card-image">
         <a href="/2023/10/27/JavaScript的栈/" class="image is-7by1">
             <img class="thumbnail" src="/images/name.jpg" alt="JavaScript的栈">
         </a>
@@ -426,6 +374,64 @@
             <div class="level-start">
                 <div class="level-item">
                 <a class="button is-size-7 is-light" href="/2023/10/27/JavaScript的栈/#more">阅读更多</a>
+                </div>
+            </div>
+        </div>
+        
+        
+    </div>
+</div>
+
+
+
+
+
+
+
+
+    <div class="card">
+    
+    <div class="card-image">
+        <a href="/2023/10/27/JavaScript的数组/" class="image is-7by1">
+            <img class="thumbnail" src="/images/handle.jpg" alt="JavaScript的数组">
+        </a>
+    </div>
+    
+    <div class="card-content article ">
+        
+        <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
+            <div class="level-left">
+                <time class="level-item has-text-grey" datetime="2023-10-27T04:06:26.049Z">2023-10-27</time>
+                
+                <div class="level-item">
+                <a class="has-link-grey -link" href="/categories/数据结构/">数据结构</a>
+                </div>
+                
+                
+                <span class="level-item has-text-grey">
+                    
+                    
+                    16 分钟 读完 (大约 2349 个字)
+                </span>
+                
+                
+            </div>
+        </div>
+        
+        <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
+            
+                <a class="has-link-black-ter" href="/2023/10/27/JavaScript的数组/">JavaScript的数组</a>
+            
+        </h1>
+        <div class="content">
+            <p>使用数组的目的：数组用来存储一系列同一种数据类型的值。但是在<code>JavaScript</code>中我们可以存储不同类型的值。</p>
+        </div>
+        
+        
+        <div class="level is-mobile">
+            <div class="level-start">
+                <div class="level-item">
+                <a class="button is-size-7 is-light" href="/2023/10/27/JavaScript的数组/#more">阅读更多</a>
                 </div>
             </div>
         </div>
@@ -953,25 +959,6 @@
         
         <article class="media">
             
-            <a href="/2023/10/27/特蕾莎修女的诗歌-无论如何/" class="media-left">
-                <p class="image is-64x64">
-                    <img class="thumbnail" src="/images/fly.jpg" alt="特蕾莎修女的诗歌《无论如何》">
-                </p>
-            </a>
-            
-            <div class="media-content">
-                <div class="content">
-                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2023-10-27T04:06:26.056Z">2023-10-27</time></div>
-                    <a href="/2023/10/27/特蕾莎修女的诗歌-无论如何/" class="has-link-black-ter is-size-6">特蕾莎修女的诗歌《无论如何》</a>
-                    <p class="is-size-7 is-uppercase">
-                        <a class="has-link-grey -link" href="/categories/小文章/">小文章</a>
-                    </p>
-                </div>
-            </div>
-        </article>
-        
-        <article class="media">
-            
             <a href="/2023/10/27/虚拟Dom与Diff算法/" class="media-left">
                 <p class="image is-64x64">
                     <img class="thumbnail" src="/images/redux.jpg" alt="虚拟Dom与Diff算法">
@@ -984,6 +971,25 @@
                     <a href="/2023/10/27/虚拟Dom与Diff算法/" class="has-link-black-ter is-size-6">虚拟Dom与Diff算法</a>
                     <p class="is-size-7 is-uppercase">
                         <a class="has-link-grey -link" href="/categories/react/">react</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2023/10/27/特蕾莎修女的诗歌-无论如何/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/fly.jpg" alt="特蕾莎修女的诗歌《无论如何》">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2023-10-27T04:06:26.056Z">2023-10-27</time></div>
+                    <a href="/2023/10/27/特蕾莎修女的诗歌-无论如何/" class="has-link-black-ter is-size-6">特蕾莎修女的诗歌《无论如何》</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/小文章/">小文章</a>
                     </p>
                 </div>
             </div>
