@@ -16,7 +16,7 @@
 <meta property="og:description" content="函数式定义的无状态组件 es5 原生的使用React.createClass定义的组件 es6 形式的extends React.Component 定义的组件">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="https://kimqueen.github.io/images/life.png">
-<meta property="og:updated_time" content="2023-10-27T05:04:30.919Z">
+<meta property="og:updated_time" content="2023-10-27T05:11:57.422Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="react组件的渲染">
 <meta name="twitter:description" content="函数式定义的无状态组件 es5 原生的使用React.createClass定义的组件 es6 形式的extends React.Component 定义的组件">
@@ -186,7 +186,7 @@
 
 </li>
 </ul>
-<h4 id="无状态组件"><a href="#无状态组件" class="headerlink" title="无状态组件"></a>无状态组件</h4><p>无状态组件一般的用途就是纯展示组件，这种之间只负责传入的<code>props</code>来展示，不涉及state的状态操作。具体的无状态函数组件，在官方文档中支出是：<br><code>在大部分React代码中，大多数组件被写成无状态的组件，通过简单组合可以构建成其他的组件等；这种通过多个简单然后合并成一个大应用的设计模式被提倡。</code><br>无状态函数组件的组成形式上面只有一个render方法的组件类，通过函数形式或是ES6箭头函数的形式在创建，并且在这个之间是无<code>state</code>的。<br>我们先举个小栗子：</p>
+<h4 id="无状态组件"><a href="#无状态组件" class="headerlink" title="无状态组件"></a>无状态组件</h4><p>1111111无状态组件一般的用途就是纯展示组件，这种之间只负责传入的<code>props</code>来展示，不涉及state的状态操作。具体的无状态函数组件，在官方文档中支出是：<br><code>在大部分React代码中，大多数组件被写成无状态的组件，通过简单组合可以构建成其他的组件等；这种通过多个简单然后合并成一个大应用的设计模式被提倡。</code><br>无状态函数组件的组成形式上面只有一个render方法的组件类，通过函数形式或是ES6箭头函数的形式在创建，并且在这个之间是无<code>state</code>的。<br>我们先举个小栗子：</p>
 <figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">function HelloComponent(props, /* context */) &#123;</span><br><span class="line">  return &lt;div&gt;Hello &#123;props.name&#125;&lt;/div&gt;</span><br><span class="line">&#125;</span><br><span class="line">ReactDOM.render(&lt;HelloComponent name=&quot;Sebastian&quot; /&gt;,Node)</span><br></pre></td></tr></table></figure>
 
 <p>我们看一下上面的代码，可以看出无状态组件的形式代码的可读性会更好，并且减少了大量的冗余的代码，精简至只需要一个render方法，大大增强了编写组件的遍历，除此之外还有以下几个显著的特点：</p>
@@ -238,16 +238,16 @@
     <div class="level post-navigation is-flex-wrap is-mobile">
         
         <div class="level-start">
-            <a class="level level-item has-link-grey  article-nav-prev" href="/2023/10/27/moment的中文显示/">
+            <a class="level level-item has-link-grey  article-nav-prev" href="/2023/10/27/webpack-treeShaking/">
                 <i class="level-item fas fa-chevron-left"></i>
-                <span class="level-item">moment的中文显示</span>
+                <span class="level-item">webpack-treeShaking</span>
             </a>
         </div>
         
         
         <div class="level-end">
-            <a class="level level-item has-link-grey  article-nav-next" href="/2023/10/27/react的状态管理/">
-                <span class="level-item">react的状态管理</span>
+            <a class="level level-item has-link-grey  article-nav-next" href="/2023/10/27/antDesign方法默认传值加上其他参数传值/">
+                <span class="level-item">antDesign方法默认传值加上其他参数传值</span>
                 <i class="level-item fas fa-chevron-right"></i>
             </a>
         </div>
@@ -587,25 +587,6 @@
         
         <article class="media">
             
-            <a href="/2023/10/27/虚拟Dom与Diff算法/" class="media-left">
-                <p class="image is-64x64">
-                    <img class="thumbnail" src="/images/redux.jpg" alt="虚拟Dom与Diff算法">
-                </p>
-            </a>
-            
-            <div class="media-content">
-                <div class="content">
-                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2023-10-27T04:06:26.056Z">2023-10-27</time></div>
-                    <a href="/2023/10/27/虚拟Dom与Diff算法/" class="has-link-black-ter is-size-6">虚拟Dom与Diff算法</a>
-                    <p class="is-size-7 is-uppercase">
-                        <a class="has-link-grey -link" href="/categories/react/">react</a>
-                    </p>
-                </div>
-            </div>
-        </article>
-        
-        <article class="media">
-            
             <a href="/2023/10/27/特蕾莎修女的诗歌-无论如何/" class="media-left">
                 <p class="image is-64x64">
                     <img class="thumbnail" src="/images/fly.jpg" alt="特蕾莎修女的诗歌《无论如何》">
@@ -625,18 +606,18 @@
         
         <article class="media">
             
-            <a href="/2023/10/27/动态向表头添加列的表格-基于antdesign/" class="media-left">
+            <a href="/2023/10/27/虚拟Dom与Diff算法/" class="media-left">
                 <p class="image is-64x64">
-                    <img class="thumbnail" src="/images/summary1.jpg" alt="动态向表头添加列的表格-基于antdesign">
+                    <img class="thumbnail" src="/images/redux.jpg" alt="虚拟Dom与Diff算法">
                 </p>
             </a>
             
             <div class="media-content">
                 <div class="content">
-                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2023-10-27T04:06:26.055Z">2023-10-27</time></div>
-                    <a href="/2023/10/27/动态向表头添加列的表格-基于antdesign/" class="has-link-black-ter is-size-6">动态向表头添加列的表格-基于antdesign</a>
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2023-10-27T04:06:26.056Z">2023-10-27</time></div>
+                    <a href="/2023/10/27/虚拟Dom与Diff算法/" class="has-link-black-ter is-size-6">虚拟Dom与Diff算法</a>
                     <p class="is-size-7 is-uppercase">
-                        <a class="has-link-grey -link" href="/categories/前端功能实现代码/">前端功能实现代码</a>
+                        <a class="has-link-grey -link" href="/categories/react/">react</a>
                     </p>
                 </div>
             </div>
@@ -654,6 +635,25 @@
                 <div class="content">
                     <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2023-10-27T04:06:26.055Z">2023-10-27</time></div>
                     <a href="/2023/10/27/在echarts使用地图的坐标/" class="has-link-black-ter is-size-6">在echarts使用地图的坐标</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/前端功能实现代码/">前端功能实现代码</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2023/10/27/动态向表头添加列的表格-基于antdesign/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/summary1.jpg" alt="动态向表头添加列的表格-基于antdesign">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2023-10-27T04:06:26.055Z">2023-10-27</time></div>
+                    <a href="/2023/10/27/动态向表头添加列的表格-基于antdesign/" class="has-link-black-ter is-size-6">动态向表头添加列的表格-基于antdesign</a>
                     <p class="is-size-7 is-uppercase">
                         <a class="has-link-grey -link" href="/categories/前端功能实现代码/">前端功能实现代码</a>
                     </p>
