@@ -1,0 +1,1357 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head><meta name="generator" content="Hexo 3.9.0">
+    <meta charset="utf-8">
+<title>less语法基础 - Kim</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+
+
+    <meta name="description" content="变量（1）可以将属性的值赋值给一个变量，变量为完全的常量，所以只能定义一次 123@pre-blue :  #5B83AD;@after-blue :@nice-blue + #111；#header&amp;#123; color: @after-blue; &amp;#125;">
+<meta name="keywords" content="前端,less,样式">
+<meta property="og:type" content="article">
+<meta property="og:title" content="less语法基础">
+<meta property="og:url" content="https://kimqueen.github.io/kim.github.io/2020/11/01/less语法基础/index.html">
+<meta property="og:site_name" content="Kim">
+<meta property="og:description" content="变量（1）可以将属性的值赋值给一个变量，变量为完全的常量，所以只能定义一次 123@pre-blue :  #5B83AD;@after-blue :@nice-blue + #111；#header&amp;#123; color: @after-blue; &amp;#125;">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="https://kimqueen.github.io/images/color.jpg">
+<meta property="og:updated_time" content="2020-11-01T02:00:00.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="less语法基础">
+<meta name="twitter:description" content="变量（1）可以将属性的值赋值给一个变量，变量为完全的常量，所以只能定义一次 123@pre-blue :  #5B83AD;@after-blue :@nice-blue + #111；#header&amp;#123; color: @after-blue; &amp;#125;">
+<meta name="twitter:image" content="https://kimqueen.github.io/images/color.jpg">
+
+
+
+
+
+
+
+<link rel="icon" href="/images/favicon.svg">
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.7.2/css/bulma.css">
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Ubuntu:400,600|Source+Code+Pro">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@9.12.0/styles/atom-one-dark.css">
+
+
+    
+    
+    
+    <style>body>.footer,body>.navbar,body>.section{opacity:0}</style>
+    
+
+    
+    
+    
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lightgallery@1.6.8/dist/css/lightgallery.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/justifiedGallery@3.7.0/dist/css/justifiedGallery.min.css">
+    
+
+    
+    
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/outdatedbrowser@1.1.5/outdatedbrowser/outdatedbrowser.min.css">
+
+
+    
+    
+    
+    
+
+<link rel="stylesheet" href="/css/back-to-top.css">
+
+
+    
+    
+
+    
+    
+    
+    
+
+    
+    
+<link rel="stylesheet" href="/css/progressbar.css">
+<script src="https://cdn.jsdelivr.net/npm/pace-js@1.0.2/pace.min.js"></script>
+
+    
+    
+    
+
+    
+    
+    
+
+
+<link rel="stylesheet" href="/css/style.css">
+</head>
+<body class="is-2-column">
+    <nav class="navbar navbar-main">
+    <div class="container">
+        <div class="navbar-brand is-flex-center">
+            <a class="navbar-item navbar-logo" href="/">
+            
+                <img src="/images/logo.png" alt="less语法基础" height="28">
+            
+            </a>
+        </div>
+        <div class="navbar-menu">
+            
+            <div class="navbar-start">
+                
+                <a class="navbar-item" href="/">主页</a>
+                
+                <a class="navbar-item" href="/archives">归档</a>
+                
+                <a class="navbar-item" href="/categories">分类</a>
+                
+                <a class="navbar-item" href="/tags">标签</a>
+                
+                <a class="navbar-item" href="/about">关于</a>
+                
+            </div>
+            
+            <div class="navbar-end">
+                
+                    
+                    
+                    <a class="navbar-item" target="_blank" title="Download on GitHub" href="https://github.com/ppoffice/hexo-theme-icarus">
+                        
+                        <i class="fab fa-github"></i>
+                        
+                    </a>
+                    
+                
+                
+                <a class="navbar-item is-hidden-tablet catalogue" title="目录" href="javascript:;">
+                    <i class="fas fa-list-ul"></i>
+                </a>
+                
+                
+                <a class="navbar-item search" title="搜索" href="javascript:;">
+                    <i class="fas fa-search"></i>
+                </a>
+                
+            </div>
+        </div>
+    </div>
+</nav>
+    
+    <section class="section">
+        <div class="container">
+            <div class="columns">
+                <div class="column is-8-tablet is-8-desktop is-8-widescreen has-order-2 column-main"><div class="card">
+    
+    <div class="card-image">
+        <span class="image is-7by1">
+            <img class="thumbnail" src="/images/color.jpg" alt="less语法基础">
+        </span>
+    </div>
+    
+    <div class="card-content article ">
+        
+        <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
+            <div class="level-left">
+                <time class="level-item has-text-grey" datetime="2020-11-01T02:00:00.000Z">2020-11-01</time>
+                
+                <div class="level-item">
+                <a class="has-link-grey -link" href="/categories/less/">less</a>
+                </div>
+                
+                
+                <span class="level-item has-text-grey">
+                    
+                    
+                    14 分钟 读完 (大约 2103 个字)
+                </span>
+                
+                
+            </div>
+        </div>
+        
+        <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
+            
+                less语法基础
+            
+        </h1>
+        <div class="content">
+            <h2 id="变量"><a href="#变量" class="headerlink" title="变量"></a>变量</h2><p>（1）可以将属性的值赋值给一个变量，变量为完全的常量，所以只能定义一次</p>
+<figure class="highlight less hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-variable">@pre-blue :</span>  <span class="hljs-number">#5B83AD</span>;</span><br><span class="line"><span class="hljs-variable">@after-blue :</span><span class="hljs-variable">@nice-blue</span> + <span class="hljs-number">#111</span>；</span><br><span class="line">#header&#123; <span class="hljs-attribute">color</span>: <span class="hljs-variable">@after-blue</span>; &#125;</span><br></pre></td></tr></table></figure>
+
+<a id="more"></a>
+<p>编译过的结果就是:</p>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">#header &#123; color :#6c94be &#125;</span><br></pre></td></tr></table></figure>
+
+<p>(2)也可以通过使用变量名定义为变量</p>
+<figure class="highlight less hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-variable">@fnord:</span><span class="hljs-string">'I am Kim'</span></span><br><span class="line"><span class="hljs-variable">@var</span>: <span class="hljs-string">'fnord'</span>;</span><br><span class="line"><span class="hljs-attribute">content</span>:<span class="hljs-variable">@@var</span></span><br></pre></td></tr></table></figure>
+
+<p>编译过的结果就是:</p>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">content:&apos;I am Kim&apos;;</span><br></pre></td></tr></table></figure>
+
+<p>##混合<br>将一些通用的属性放在一个class中，然后在例外一个class中去调用这些属性。任何的class和id或是元素都可以用这样的方式进行引入。</p>
+<figure class="highlight less hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-selector-class">.temp</span>&#123;</span><br><span class="line">  <span class="hljs-attribute">border-top</span>: dotted <span class="hljs-number">1px</span> black;</span><br><span class="line">  <span class="hljs-attribute">border-bottom</span>: solid <span class="hljs-number">2px</span> black;</span><br><span class="line">&#125;</span><br><span class="line"><span class="hljs-selector-id">#header</span> <span class="hljs-selector-tag">a</span>&#123;</span><br><span class="line">  <span class="hljs-attribute">color </span>: <span class="hljs-number">#111</span>;</span><br><span class="line">  <span class="hljs-selector-class">.temp</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="hljs-selector-id">#nav</span> <span class="hljs-selector-tag">a</span>&#123;</span><br><span class="line">  <span class="hljs-attribute">color </span>: black;</span><br><span class="line">  <span class="hljs-selector-class">.temp</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>编译过的结果就是:</p>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">#header a&#123;</span><br><span class="line">  color : #111;</span><br><span class="line">  border-top: dotted 1px black;</span><br><span class="line">  border-bottom: solid 2px black;</span><br><span class="line">&#125;</span><br><span class="line">#nav a&#123;</span><br><span class="line">  color : black;</span><br><span class="line">  border-top: dotted 1px black;</span><br><span class="line">  border-bottom: solid 2px black;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>##带参数的混合<br>（1）可以像函数一样定义一个带参数的属性集合</p>
+<figure class="highlight less hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-selector-class">.border-radius</span> (<span class="hljs-variable">@radius</span>) &#123;</span><br><span class="line">        <span class="hljs-attribute">border-radius</span>: <span class="hljs-variable">@radius</span>;</span><br><span class="line">   <span class="hljs-attribute">-moz-border-radius</span>: <span class="hljs-variable">@radius</span>;</span><br><span class="line"><span class="hljs-attribute">-webkit-border-radius</span>: <span class="hljs-variable">@radius</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="hljs-selector-id">#header</span> &#123;</span><br><span class="line">  <span class="hljs-selector-class">.border-radius</span>(<span class="hljs-number">4px</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="hljs-selector-class">.button</span> &#123;</span><br><span class="line">  <span class="hljs-selector-class">.border-radius</span>(<span class="hljs-number">6px</span>);  </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>（2）也可以给参数设置一个默认的值</p>
+<figure class="highlight less hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-selector-class">.border-radius</span> (<span class="hljs-variable">@radius</span> : <span class="hljs-number">5px</span>) &#123;</span><br><span class="line">        <span class="hljs-attribute">border-radius</span>: <span class="hljs-variable">@radius</span>;</span><br><span class="line">   <span class="hljs-attribute">-moz-border-radius</span>: <span class="hljs-variable">@radius</span>;</span><br><span class="line"><span class="hljs-attribute">-webkit-border-radius</span>: <span class="hljs-variable">@radius</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="hljs-selector-id">#header</span> &#123;</span><br><span class="line">  <span class="hljs-selector-class">.border-radius</span>(<span class="hljs-number">4px</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>（3）也可以定义不带参数的属性集合，用于隐藏这个属性集合，不让它暴露到CSS中去。</p>
+<figure class="highlight less hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-selector-class">.wrap</span> () &#123;</span><br><span class="line">  <span class="hljs-attribute">text-wrap</span>: wrap;</span><br><span class="line">  <span class="hljs-attribute">white-space</span>: pre-wrap;</span><br><span class="line">  <span class="hljs-attribute">white-space</span>: -moz-pre-wrap;</span><br><span class="line">  <span class="hljs-attribute">word-wrap</span>: break-word;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="hljs-selector-tag">pre</span> &#123; <span class="hljs-selector-class">.wrap</span> &#125;</span><br></pre></td></tr></table></figure>
+
+<p>编译后的结果是：</p>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">pre &#123;</span><br><span class="line">  text-wrap: wrap;</span><br><span class="line">  white-space: pre-wrap;</span><br><span class="line">  white-space: -moz-pre-wrap;</span><br><span class="line">  word-wrap: break-word;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>（4）arguments包含了所有的传递进来的参数，不用单独处理每一个参数</p>
+<figure class="highlight less hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-selector-class">.box-shadow</span> (<span class="hljs-variable">@x</span>: <span class="hljs-number">0</span>, <span class="hljs-variable">@y</span>: <span class="hljs-number">0</span>, <span class="hljs-variable">@blur</span>: <span class="hljs-number">1px</span>, <span class="hljs-variable">@color</span>: <span class="hljs-number">#000</span>) &#123;</span><br><span class="line">  <span class="hljs-attribute">box-shadow</span>: <span class="hljs-variable">@arguments</span>;</span><br><span class="line">  <span class="hljs-attribute">-moz-box-shadow</span>: <span class="hljs-variable">@arguments</span>;</span><br><span class="line">  <span class="hljs-attribute">-webkit-box-shadow</span>: <span class="hljs-variable">@arguments</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="hljs-selector-class">.box-shadow</span>(<span class="hljs-number">2px</span>, <span class="hljs-number">5px</span>);</span><br></pre></td></tr></table></figure>
+
+<p>编译过后的结果是：</p>
+<figure class="highlight less hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-selector-class">.box-shadow</span>&#123;</span><br><span class="line">          <span class="hljs-attribute">box-shadow</span>: <span class="hljs-number">2px</span> <span class="hljs-number">5px</span> <span class="hljs-number">1px</span> <span class="hljs-number">#000</span>;</span><br><span class="line">     <span class="hljs-attribute">-moz-box-shadow</span>: <span class="hljs-number">2px</span> <span class="hljs-number">5px</span> <span class="hljs-number">1px</span> <span class="hljs-number">#000</span>;</span><br><span class="line">  <span class="hljs-attribute">-webkit-box-shadow</span>: <span class="hljs-number">2px</span> <span class="hljs-number">5px</span> <span class="hljs-number">1px</span> <span class="hljs-number">#000</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="模式匹配"><a href="#模式匹配" class="headerlink" title="模式匹配"></a>模式匹配</h2><p>可以通过值的进行匹配，也可以通过参数的个数进行匹配 </p>
+<figure class="highlight less hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-comment">//让.mixin根据不同的@switch值而表现各异</span></span><br><span class="line"><span class="hljs-selector-class">.mixin</span> (dark, <span class="hljs-variable">@color</span>) &#123;</span><br><span class="line">  <span class="hljs-attribute">color</span>: darken(<span class="hljs-variable">@color</span>, <span class="hljs-number">10%</span>);</span><br><span class="line">&#125;</span><br><span class="line"><span class="hljs-selector-class">.mixin</span> (light, <span class="hljs-variable">@color</span>) &#123;</span><br><span class="line">  <span class="hljs-attribute">color</span>: lighten(<span class="hljs-variable">@color</span>, <span class="hljs-number">10%</span>);</span><br><span class="line">&#125;</span><br><span class="line"><span class="hljs-selector-class">.mixin</span> (<span class="hljs-variable">@_</span>, <span class="hljs-variable">@color</span>) &#123;</span><br><span class="line">  <span class="hljs-attribute">display</span>: block;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="hljs-comment">//运行</span></span><br><span class="line"><span class="hljs-variable">@switch:</span> light;</span><br><span class="line"></span><br><span class="line"><span class="hljs-selector-class">.class</span> &#123;</span><br><span class="line">  <span class="hljs-selector-class">.mixin</span>(<span class="hljs-variable">@switch</span>, <span class="hljs-number">#888</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>经过编译后的颜色是：</p>
+<figure class="highlight less hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-selector-class">.class</span> &#123;</span><br><span class="line">  <span class="hljs-attribute">color</span>: <span class="hljs-number">#a2a2a2</span>;</span><br><span class="line">  <span class="hljs-attribute">display</span>: block;</span><br><span class="line">&#125;</span><br><span class="line"><span class="hljs-comment">/*mixin就会得到传入颜色的浅色。如果@switch设为dark，就会得到深色。</span></span><br><span class="line"><span class="hljs-comment"></span></span><br><span class="line"><span class="hljs-comment">具体实现如下：</span></span><br><span class="line"><span class="hljs-comment">第一个混合定义并未被匹配，因为它只接受dark做为首参</span></span><br><span class="line"><span class="hljs-comment">第二个混合定义被成功匹配，因为它只接受light</span></span><br><span class="line"><span class="hljs-comment">第三个混合定义被成功匹配，因为它接受任意值</span></span><br><span class="line"><span class="hljs-comment"></span></span><br><span class="line"><span class="hljs-comment">只有被匹配的混合才会被使用。变量可以匹配任意的传入值，而变量以外的固定值就仅仅匹配与其相等的*/</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="导引表达式"><a href="#导引表达式" class="headerlink" title="导引表达式"></a>导引表达式</h2><p>（1）根据表达式进行匹配，而不是通过值和参数匹配</p>
+<figure class="highlight less hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-comment">//when关键字用以定义一个导引序列(此例只有一个导引)</span></span><br><span class="line"><span class="hljs-selector-class">.mixin</span> (<span class="hljs-variable">@a</span>) <span class="hljs-keyword">when</span> (lightness(<span class="hljs-variable">@a</span>) &gt;= <span class="hljs-number">50%</span>) &#123;</span><br><span class="line">  <span class="hljs-attribute">background-color</span>: black;</span><br><span class="line">&#125;</span><br><span class="line"><span class="hljs-selector-class">.mixin</span> (<span class="hljs-variable">@a</span>) <span class="hljs-keyword">when</span> (lightness(<span class="hljs-variable">@a</span>) &lt; <span class="hljs-number">50%</span>) &#123;</span><br><span class="line">  <span class="hljs-attribute">background-color</span>: white;</span><br><span class="line">&#125;</span><br><span class="line"><span class="hljs-selector-class">.mixin</span> (<span class="hljs-variable">@a</span>) &#123;</span><br><span class="line">  <span class="hljs-attribute">color</span>: <span class="hljs-variable">@a</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="hljs-comment">//运行</span></span><br><span class="line"><span class="hljs-selector-class">.class1</span> &#123; <span class="hljs-selector-class">.mixin</span>(<span class="hljs-number">#ddd</span>) &#125;</span><br><span class="line"><span class="hljs-selector-class">.class2</span> &#123; <span class="hljs-selector-class">.mixin</span>(<span class="hljs-number">#555</span>) &#125;</span><br></pre></td></tr></table></figure>
+
+<p>编译后的结果是：</p>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">.class1 &#123;</span><br><span class="line">  background-color: black;</span><br><span class="line">  color: #ddd;</span><br><span class="line">&#125;</span><br><span class="line">.class2 &#123;</span><br><span class="line">  background-color: white;</span><br><span class="line">  color: #555;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>(2)导引中可用的全部的比较运算符有:&gt; &gt;= =&lt; &lt;。此外，关键字true只表示布尔真值，除去关键字true以外的值都被视为布尔假值。<br>(3)导引序列使用逗号‘，’分割，当且仅当所有的条件都符合的时候，才会被视为匹配成功。</p>
+<figure class="highlight less hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-selector-class">.minin</span>(<span class="hljs-variable">@a</span>) <span class="hljs-keyword">when</span> (<span class="hljs-variable">@a</span> &gt;<span class="hljs-number">10</span>),(<span class="hljs-variable">@a</span> &lt; <span class="hljs-number">100</span>)&#123;...&#125;</span><br></pre></td></tr></table></figure>
+
+<p>(4)导引可以没有参数，也可以对参数进行比较运算</p>
+<figure class="highlight less hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-keyword">@media</span>: mobile;</span><br><span class="line"></span><br><span class="line"><span class="hljs-selector-class">.mixin</span> (<span class="hljs-variable">@a</span>) <span class="hljs-keyword">when</span> (<span class="hljs-variable">@media</span> = mobile) &#123; ... &#125;</span><br><span class="line"><span class="hljs-selector-class">.mixin</span> (<span class="hljs-variable">@a</span>) <span class="hljs-keyword">when</span> (<span class="hljs-variable">@media</span> = desktop) &#123; ... &#125;</span><br><span class="line"></span><br><span class="line"><span class="hljs-selector-class">.max</span> (<span class="hljs-variable">@a</span>, <span class="hljs-variable">@b</span>) <span class="hljs-keyword">when</span> (<span class="hljs-variable">@a</span> &gt; <span class="hljs-variable">@b</span>) &#123; <span class="hljs-attribute">width</span>: <span class="hljs-variable">@a</span> &#125;</span><br><span class="line"><span class="hljs-selector-class">.max</span> (<span class="hljs-variable">@a</span>, <span class="hljs-variable">@b</span>) <span class="hljs-keyword">when</span> (<span class="hljs-variable">@a</span> &lt; <span class="hljs-variable">@b</span>) &#123; <span class="hljs-attribute">width</span>: <span class="hljs-variable">@b</span> &#125;</span><br></pre></td></tr></table></figure>
+
+<p>(5)如果想要基于值的类型进行匹配的话，可以使用is表达式进行判断</p>
+<figure class="highlight less hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-selector-class">.mixin</span> (<span class="hljs-variable">@a</span>, <span class="hljs-variable">@b</span>: <span class="hljs-number">0</span>) <span class="hljs-keyword">when</span> (isnumber(<span class="hljs-variable">@b</span>)) &#123; ... &#125;</span><br><span class="line"><span class="hljs-selector-class">.mixin</span> (<span class="hljs-variable">@a</span>, <span class="hljs-variable">@b</span>: black) <span class="hljs-keyword">when</span> (iscolor(<span class="hljs-variable">@b</span>)) &#123; ... &#125;</span><br></pre></td></tr></table></figure>
+
+<p><code>常见的检测函式：iscolor、isnumber、isstring、iskeyword、isurl</code><br><code>判断一个值是纯数字，还是某个单位量，可以使用下列函式：ispixel、ispercentage、isem</code><br>(6)使用and和not关键字实现与条件</p>
+<figure class="highlight less hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-selector-class">.mixin</span>(<span class="hljs-variable">@a</span>) <span class="hljs-keyword">when</span> (isnumber (<span class="hljs-variable">@a</span>) ) <span class="hljs-keyword">and</span> (<span class="hljs-variable">@a</span> &gt; <span class="hljs-number">0</span>) &#123;...&#125;</span><br><span class="line"><span class="hljs-selector-class">.mixin</span>(<span class="hljs-variable">@b</span>) <span class="hljs-keyword">when</span> <span class="hljs-keyword">not</span> ( <span class="hljs-variable">@b</span> &gt; <span class="hljs-number">0</span>)&#123;...&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="嵌套规则"><a href="#嵌套规则" class="headerlink" title="嵌套规则"></a>嵌套规则</h2><p>（1）以嵌套的方式写层叠样式</p>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">#header &#123; color: black; &#125;</span><br><span class="line">#header .navigation &#123;</span><br><span class="line">  font-size: 12px;</span><br><span class="line">&#125;</span><br><span class="line">#header .logo &#123; </span><br><span class="line">  width: 300px; </span><br><span class="line">&#125;</span><br><span class="line">#header .logo:hover &#123;</span><br><span class="line">  text-decoration: none;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>可以改写成用less语法进行,其中&amp;符号用于写串联选择器，这一点对于伪类选择器有很大的作用。</p>
+<figure class="highlight less hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-selector-id">#header</span> &#123;</span><br><span class="line">  <span class="hljs-attribute">color</span>: black;</span><br><span class="line"></span><br><span class="line">  <span class="hljs-selector-class">.navigation</span> &#123;</span><br><span class="line">    <span class="hljs-attribute">font-size</span>: <span class="hljs-number">12px</span>;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="hljs-selector-class">.logo</span> &#123;</span><br><span class="line">    <span class="hljs-attribute">width</span>: <span class="hljs-number">300px</span>;</span><br><span class="line">    <span class="hljs-selector-tag">&amp;</span><span class="hljs-selector-pseudo">:hover</span> &#123; <span class="hljs-attribute">text-decoration</span>: none &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="运算"><a href="#运算" class="headerlink" title="运算"></a>运算</h2><p>（1）任何数字、颜色都可以参与运算</p>
+<figure class="highlight less hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-variable">@base :</span> <span class="hljs-number">10%</span>;</span><br><span class="line"><span class="hljs-variable">@filter :</span> <span class="hljs-variable">@base</span> * <span class="hljs-number">2</span>;</span><br><span class="line"><span class="hljs-variable">@other :</span> <span class="hljs-variable">@base</span> + <span class="hljs-variable">@filter</span>;</span><br><span class="line"></span><br><span class="line"><span class="hljs-attribute">color </span>: <span class="hljs-number">#888</span> / <span class="hljs-number">4</span>;</span><br><span class="line">background-color : @base=color + #111;</span><br><span class="line"><span class="hljs-attribute">height </span>: <span class="hljs-number">100%</span> / <span class="hljs-number">2</span> + filterl;</span><br></pre></td></tr></table></figure>
+
+<p>（2）less运算能够分辨颜色和单位</p>
+<figure class="highlight less hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-variable">@var  :</span> <span class="hljs-number">1px</span> + <span class="hljs-number">5</span>; <span class="hljs-comment">//6px</span></span><br><span class="line"><span class="hljs-attribute">width  </span>: (<span class="hljs-variable">@var</span> + <span class="hljs-number">5</span> ) *<span class="hljs-number">2</span>; <span class="hljs-comment">//被允许使用括号</span></span><br><span class="line"><span class="hljs-attribute">border</span>: (<span class="hljs-variable">@width</span> * <span class="hljs-number">2</span>) solid black;  <span class="hljs-comment">// 可以在符合属性中进行使用</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="函数"><a href="#函数" class="headerlink" title="函数"></a>函数</h2><p>（1）less本身提供了一系列的颜色运算函数。颜色会被转化成为HSL色彩空间，然后在通道级别操作。</p>
+<figure class="highlight less hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-selector-tag">lighten</span>(<span class="hljs-variable">@color</span>, <span class="hljs-number">10%</span>);     <span class="hljs-comment">// 返回一个比@color低10％更轻的颜色</span></span><br><span class="line"><span class="hljs-selector-tag">darken</span>(<span class="hljs-variable">@color</span>, <span class="hljs-number">10%</span>);      <span class="hljs-comment">// 返回一个比@color高10％较暗的颜色</span></span><br><span class="line"><span class="hljs-selector-tag">saturate</span>(<span class="hljs-variable">@color</span>, <span class="hljs-number">10%</span>);    <span class="hljs-comment">// 返回比@color多饱和度10％的颜色</span></span><br><span class="line"><span class="hljs-selector-tag">desaturate</span>(<span class="hljs-variable">@color</span>, <span class="hljs-number">10%</span>);  <span class="hljs-comment">// 返回一个比@color少饱和度10％的颜色</span></span><br><span class="line"><span class="hljs-selector-tag">fadein</span>(<span class="hljs-variable">@color</span>, <span class="hljs-number">10%</span>);      <span class="hljs-comment">// 返回一个比@color少10％透明度的颜色</span></span><br><span class="line"><span class="hljs-selector-tag">fadeout</span>(<span class="hljs-variable">@color</span>, <span class="hljs-number">10%</span>);     <span class="hljs-comment">// 返回一个比@color多10％透明度的颜色</span></span><br><span class="line"><span class="hljs-selector-tag">fade</span>(<span class="hljs-variable">@color</span>, <span class="hljs-number">50%</span>);        <span class="hljs-comment">// 返回一个颜色透明度为50％的颜色</span></span><br><span class="line"><span class="hljs-selector-tag">spin</span>(<span class="hljs-variable">@color</span>, <span class="hljs-number">10</span>);         <span class="hljs-comment">// 返回色调比@color大10度的颜色</span></span><br><span class="line"><span class="hljs-selector-tag">spin</span>(<span class="hljs-variable">@color</span>, -<span class="hljs-number">10</span>);        <span class="hljs-comment">// 返回一个比@color小10度色调的颜色</span></span><br><span class="line"><span class="hljs-selector-tag">mix</span>(<span class="hljs-variable">@color1</span>, <span class="hljs-variable">@color2</span>);    <span class="hljs-comment">// 返回一个混合@ color1和@ color2的颜色</span></span><br></pre></td></tr></table></figure>
+
+<p>举个小栗子：</p>
+<figure class="highlight less hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-variable">@base:</span> <span class="hljs-number">#f04615</span>;</span><br><span class="line"><span class="hljs-selector-class">.class</span> &#123;</span><br><span class="line">  <span class="hljs-attribute">color</span>: saturate(<span class="hljs-variable">@base</span>, <span class="hljs-number">5%</span>);</span><br><span class="line">  <span class="hljs-attribute">background-color</span>: lighten(spin(<span class="hljs-variable">@base</span>, <span class="hljs-number">8</span>), <span class="hljs-number">25%</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>（2）可以获取颜色的具体参数</p>
+<figure class="highlight less hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-selector-tag">hue</span>(<span class="hljs-variable">@color</span>)                     <span class="hljs-comment">//获取色相</span></span><br><span class="line"><span class="hljs-selector-tag">saturation</span>(<span class="hljs-variable">@color</span>)             <span class="hljs-comment">//获取饱和度</span></span><br><span class="line"><span class="hljs-selector-tag">lightness</span>(<span class="hljs-variable">@color</span>)              <span class="hljs-comment">//获取明度</span></span><br></pre></td></tr></table></figure>
+
+<p>(3)也可以在一种颜色的通道上面创建另外一种颜色,@new 将会保持 @old的 色调, 但是具有不同的饱和度和亮度.</p>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">@new: hsl(hue(@old), 45%, 90%);</span><br></pre></td></tr></table></figure>
+
+<h2 id="Math函数"><a href="#Math函数" class="headerlink" title="Math函数"></a>Math函数</h2><p>less提供了一组方便的数学函数，可以使用它们处理一些数字类型的值。</p>
+<figure class="highlight less hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-selector-tag">round</span>(<span class="hljs-number">1.67</span>); <span class="hljs-comment">// returns `2`</span></span><br><span class="line"><span class="hljs-selector-tag">ceil</span>(<span class="hljs-number">2.4</span>);   <span class="hljs-comment">// returns `3`</span></span><br><span class="line"><span class="hljs-selector-tag">floor</span>(<span class="hljs-number">2.6</span>);  <span class="hljs-comment">// returns `2`</span></span><br><span class="line"><span class="hljs-selector-tag">percentage</span>(<span class="hljs-number">0.5</span>); <span class="hljs-comment">// returns `50%`</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="命名空间"><a href="#命名空间" class="headerlink" title="命名空间"></a>命名空间</h2><p>有时候，我们可能更好地组织CSS或是单纯的为了更好地封装，我们会将会一些变量或是混合模块进行打包操作，为了后续进行复用</p>
+<figure class="highlight less hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-selector-id">#bundle</span> &#123;</span><br><span class="line">  <span class="hljs-selector-class">.button</span> () &#123;</span><br><span class="line">    <span class="hljs-attribute">display</span>: block;</span><br><span class="line">    <span class="hljs-attribute">border</span>: <span class="hljs-number">1px</span> solid black;</span><br><span class="line">    <span class="hljs-attribute">background-color</span>: grey;</span><br><span class="line">    <span class="hljs-selector-tag">&amp;</span><span class="hljs-selector-pseudo">:hover</span> &#123; <span class="hljs-attribute">background-color</span>: white &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="hljs-selector-class">.tab</span> &#123; ... &#125;</span><br><span class="line">  <span class="hljs-selector-class">.citation</span> &#123; ... &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>当我们想要在某一个地方引入button的样式的时候：</p>
+<figure class="highlight less hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-selector-id">#header</span> <span class="hljs-selector-tag">a</span> &#123;</span><br><span class="line">  <span class="hljs-attribute">color</span>: orange;</span><br><span class="line">  <span class="hljs-selector-id">#bundle</span> &gt; <span class="hljs-selector-class">.button</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="作用域"><a href="#作用域" class="headerlink" title="作用域"></a>作用域</h2><p>less的作用域和其他编程语言十分的相似，首先在本地的变量和混合模块进行查找，如果没有找到的话，就会去父及作用域查找，直到找到为止。</p>
+<figure class="highlight less hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-variable">@var:</span> red;</span><br><span class="line"></span><br><span class="line"><span class="hljs-selector-id">#page</span> &#123;</span><br><span class="line">  <span class="hljs-variable">@var:</span> white;</span><br><span class="line">  <span class="hljs-selector-id">#header</span> &#123;</span><br><span class="line">    <span class="hljs-attribute">color</span>: <span class="hljs-variable">@var</span>; <span class="hljs-comment">// white</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="hljs-selector-id">#footer</span> &#123;</span><br><span class="line">  <span class="hljs-attribute">color</span>: <span class="hljs-variable">@var</span>; <span class="hljs-comment">// red  </span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="importing-导入"><a href="#importing-导入" class="headerlink" title="importing(导入)"></a>importing(导入)</h2><p>我们如果想要引入less文件，.less的后缀可以有可以没有</p>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">@import &quot;lib.less&quot;;</span><br><span class="line">@import &quot;lib&quot;;</span><br></pre></td></tr></table></figure>
+
+<p>但是想要导入一个CSS文件而且不希望less对它进行处理，只要加上CSS后缀就可以了。这样的话less就可以跳过，不去处理他了。</p>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">import &quot;lib.css&quot;;</span><br></pre></td></tr></table></figure>
+
+<h2 id="字符串插值"><a href="#字符串插值" class="headerlink" title="字符串插值"></a>字符串插值</h2><p>变量可以用类似ruby和php的方式嵌入到字符串中，像@{name}这样的结构</p>
+<figure class="highlight less hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-variable">@base-url:</span> <span class="hljs-string">"http://assets.fnord.com"</span>;</span><br><span class="line"><span class="hljs-attribute">background-image</span>: url(<span class="hljs-string">"@&#123;base-url&#125;/images/bg.png"</span>);</span><br></pre></td></tr></table></figure>
+
+<h2 id="避免编译"><a href="#避免编译" class="headerlink" title="避免编译"></a>避免编译</h2><p>有时候我们需要输出一些不正确的CSS语法或者使用一些 less不认识的专有语法。要输出这样的值我们可以在字符串前加上一个 ~，并将要避免编译的值用 “”包含起来。</p>
+<figure class="highlight less hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-selector-class">.class</span> &#123;</span><br><span class="line">  <span class="hljs-attribute">filter</span>: <span class="hljs-string">~"ms:alwaysHasItsOwnSyntax.For.Stuff()"</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>结果是：</p>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">.class &#123;</span><br><span class="line">  filter: ms:alwaysHasItsOwnSyntax.For.Stuff();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="JavaScript表达式"><a href="#JavaScript表达式" class="headerlink" title="JavaScript表达式"></a>JavaScript表达式</h2><p>（1）JavaScript 表达式也可以在.less 文件中使用. 可以通过反引号的方式使用:</p>
+<figure class="highlight less hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-variable">@var:</span> <span class="hljs-built_in">`"hello".toUpperCase() + '!'`</span>;  <span class="hljs-comment">// @var :"HELLO!"</span></span><br></pre></td></tr></table></figure>
+
+<p>（2）也可以同时使用字符串插值和避免编译</p>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">@str: &quot;hello&quot;;</span><br><span class="line">@var: ~`&quot;@&#123;str&#125;&quot;.toUpperCase() + &apos;!&apos;`; //@var: HELLO!;</span><br></pre></td></tr></table></figure>
+
+<p>（3）可以访问JavaScript的环境</p>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">@height: `document.body.clientHeight`;</span><br></pre></td></tr></table></figure>
+
+<p>（4）将一个JavaScript字符串解析成16进制的颜色值，可以使用 color 函数</p>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">@color: color(`window.colors.baseColor`);</span><br><span class="line">@darkcolor: darken(@color, 10%);</span><br></pre></td></tr></table></figure>
+
+<p>参考：<a href="http://www.bootcss.com/p/lesscss/" target="_blank" rel="noopener">less一种 动态 样式 语言</a></p>
+
+        </div>
+        
+        <div class="level is-size-7 is-uppercase">
+            <div class="level-start">
+                <div class="level-item">
+                    <span class="is-size-6 has-text-grey has-mr-7">#</span>
+                    <a class="has-link-grey -link" href="/tags/less/">less</a>, <a class="has-link-grey -link" href="/tags/前端/">前端</a>, <a class="has-link-grey -link" href="/tags/样式/">样式</a>
+                </div>
+            </div>
+        </div>
+        
+        
+        
+    </div>
+</div>
+
+
+
+<div class="card">
+    <div class="card-content">
+        <h3 class="menu-label has-text-centered">喜欢这篇文章？打赏一下作者吧</h3>
+        <div class="buttons is-centered">
+            
+        </div>
+    </div>
+</div>
+
+
+
+<div class="card card-transparent">
+    <div class="level post-navigation is-flex-wrap is-mobile">
+        
+        <div class="level-start">
+            <a class="level level-item has-link-grey  article-nav-prev" href="/2020/11/01/js的节流和防抖/">
+                <i class="level-item fas fa-chevron-left"></i>
+                <span class="level-item">js的节流和防抖</span>
+            </a>
+        </div>
+        
+        
+        <div class="level-end">
+            <a class="level level-item has-link-grey  article-nav-next" href="/2020/11/01/mock的配置/">
+                <span class="level-item">mock的配置</span>
+                <i class="level-item fas fa-chevron-right"></i>
+            </a>
+        </div>
+        
+    </div>
+</div>
+
+
+</div>
+                
+
+
+
+
+<div class="column is-4-tablet is-4-desktop is-4-widescreen  has-order-1 column-left ">
+    
+        
+<div class="card widget">
+    <div class="card-content">
+        <nav class="level">
+            <div class="level-item has-text-centered">
+                <div>
+                    
+                        <img class="image is-128x128 has-mb-6" src="/images/icon.jpg" alt="Kim jin">
+                    
+                    
+                    <p class="is-size-4 is-block">
+                        Kim jin
+                    </p>
+                    
+                    
+                    <p class="is-size-6 is-block">
+                        前端工程师
+                    </p>
+                    
+                    
+                    <p class="is-size-6 is-flex is-flex-center has-text-grey">
+                        <i class="fas fa-map-marker-alt has-mr-7"></i>
+                        <span>沈阳</span>
+                    </p>
+                    
+                </div>
+            </div>
+        </nav>
+        <nav class="level is-mobile">
+            <div class="level-item has-text-centered is-marginless">
+                <div>
+                    <p class="heading">
+                        文章
+                    </p>
+                    <p class="title has-text-weight-normal">
+                        57
+                    </p>
+                </div>
+            </div>
+            <div class="level-item has-text-centered is-marginless">
+                <div>
+                    <p class="heading">
+                        分类
+                    </p>
+                    <p class="title has-text-weight-normal">
+                        17
+                    </p>
+                </div>
+            </div>
+            <div class="level-item has-text-centered is-marginless">
+                <div>
+                    <p class="heading">
+                        标签
+                    </p>
+                    <p class="title has-text-weight-normal">
+                        39
+                    </p>
+                </div>
+            </div>
+        </nav>
+        <div class="level">
+            <a class="level-item button is-link is-rounded" href="https://github.com/KimQueen" target="_blank">
+                关注我</a>
+        </div>
+        
+        
+        <div class="level is-mobile">
+            
+            <a class="level-item button is-white is-marginless" target="_blank" title="Github" href="https://github.com/KimQueen">
+                
+                <i class="fab fa-github"></i>
+                
+            </a>
+            
+            <a class="level-item button is-white is-marginless" target="_blank" title="简书" href="https://www.jianshu.com/u/4ada765444de">
+                
+                <i class="fa fa-book"></i>
+                
+            </a>
+            
+            <a class="level-item button is-white is-marginless" target="_blank" title="邮件" href="mailto:2731601926@qq.com">
+                
+                <i class="fa fa-envelope"></i>
+                
+            </a>
+            
+            <a class="level-item button is-white is-marginless" target="_blank" title="RSS" href="/">
+                
+                <i class="fas fa-rss"></i>
+                
+            </a>
+            
+        </div>
+        
+    </div>
+</div>
+    
+        
+<div class="card widget" id="toc">
+    <div class="card-content">
+        <div class="menu">
+            <h3 class="menu-label">
+                目录
+            </h3>
+            <ul class="menu-list"><li>
+        <a class="is-flex" href="#变量">
+        <span class="has-mr-6">1</span>
+        <span>变量</span>
+        </a></li><li>
+        <a class="is-flex" href="#模式匹配">
+        <span class="has-mr-6">2</span>
+        <span>模式匹配</span>
+        </a></li><li>
+        <a class="is-flex" href="#导引表达式">
+        <span class="has-mr-6">3</span>
+        <span>导引表达式</span>
+        </a></li><li>
+        <a class="is-flex" href="#嵌套规则">
+        <span class="has-mr-6">4</span>
+        <span>嵌套规则</span>
+        </a></li><li>
+        <a class="is-flex" href="#运算">
+        <span class="has-mr-6">5</span>
+        <span>运算</span>
+        </a></li><li>
+        <a class="is-flex" href="#函数">
+        <span class="has-mr-6">6</span>
+        <span>函数</span>
+        </a></li><li>
+        <a class="is-flex" href="#Math函数">
+        <span class="has-mr-6">7</span>
+        <span>Math函数</span>
+        </a></li><li>
+        <a class="is-flex" href="#命名空间">
+        <span class="has-mr-6">8</span>
+        <span>命名空间</span>
+        </a></li><li>
+        <a class="is-flex" href="#作用域">
+        <span class="has-mr-6">9</span>
+        <span>作用域</span>
+        </a></li><li>
+        <a class="is-flex" href="#importing-导入">
+        <span class="has-mr-6">10</span>
+        <span>importing(导入)</span>
+        </a></li><li>
+        <a class="is-flex" href="#字符串插值">
+        <span class="has-mr-6">11</span>
+        <span>字符串插值</span>
+        </a></li><li>
+        <a class="is-flex" href="#避免编译">
+        <span class="has-mr-6">12</span>
+        <span>避免编译</span>
+        </a></li><li>
+        <a class="is-flex" href="#JavaScript表达式">
+        <span class="has-mr-6">13</span>
+        <span>JavaScript表达式</span>
+        </a></li></ul>
+        </div>
+    </div>
+</div>
+
+    
+        
+
+<div class="card widget">
+    <div class="card-content">
+        <div class="menu">
+        <h3 class="menu-label">
+            友情链接
+        </h3>
+        <ul class="menu-list">
+        
+            <li>
+                <a class="level is-mobile" href="https://yizhengfeng-jj.github.io/" target="_blank">
+                    <span class="level-left">
+                        <span class="level-item">Json</span>
+                    </span>
+                    <span class="level-right">
+                        <span class="level-item tag">yizhengfeng-jj.github.io</span>
+                    </span>
+                </a>
+            </li>
+        
+            <li>
+                <a class="level is-mobile" href="https://shuangmianxiaoq.github.io" target="_blank">
+                    <span class="level-left">
+                        <span class="level-item">双面小Q</span>
+                    </span>
+                    <span class="level-right">
+                        <span class="level-item tag">shuangmianxiaoq.github.io</span>
+                    </span>
+                </a>
+            </li>
+        
+        </ul>
+        </div>
+    </div>
+</div>
+
+
+    
+        
+<div class="card widget">
+    <div class="card-content">
+        <div class="menu">
+            <h3 class="menu-label">
+                分类
+            </h3>
+            <ul class="menu-list">
+            <li>
+        <a class="level is-marginless" href="/categories/CSS/">
+            <span class="level-start">
+                <span class="level-item">CSS</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">1</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/less/">
+            <span class="level-start">
+                <span class="level-item">less</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">1</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/react/">
+            <span class="level-start">
+                <span class="level-item">react</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">10</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/redux/">
+            <span class="level-start">
+                <span class="level-item">redux</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">1</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/webPack/">
+            <span class="level-start">
+                <span class="level-item">webPack</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">5</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/公共方法/">
+            <span class="level-start">
+                <span class="level-item">公共方法</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">1</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/前端功能实现代码/">
+            <span class="level-start">
+                <span class="level-item">前端功能实现代码</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">7</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/前端异步/">
+            <span class="level-start">
+                <span class="level-item">前端异步</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">3</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/前端编程语言/">
+            <span class="level-start">
+                <span class="level-item">前端编程语言</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">1</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/安全/">
+            <span class="level-start">
+                <span class="level-item">安全</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">1</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/小文章/">
+            <span class="level-start">
+                <span class="level-item">小文章</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">1</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/工具/">
+            <span class="level-start">
+                <span class="level-item">工具</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">14</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/性能/">
+            <span class="level-start">
+                <span class="level-item">性能</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">1</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/数据结构/">
+            <span class="level-start">
+                <span class="level-item">数据结构</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">2</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/算法/">
+            <span class="level-start">
+                <span class="level-item">算法</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">1</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/重学前端/">
+            <span class="level-start">
+                <span class="level-item">重学前端</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">5</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/面试/">
+            <span class="level-start">
+                <span class="level-item">面试</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">1</span>
+            </span>
+        </a></li>
+            </ul>
+        </div>
+    </div>
+</div>
+    
+        
+<div class="card widget">
+    <div class="card-content">
+        <h3 class="menu-label">
+            标签云
+        </h3>
+        <a href="/tags/CSS/" style="font-size: 10px;">CSS</a> <a href="/tags/HTTP/" style="font-size: 10px;">HTTP</a> <a href="/tags/JavaScript/" style="font-size: 18.89px;">JavaScript</a> <a href="/tags/JavaScript1/" style="font-size: 10px;">JavaScript1</a> <a href="/tags/TypeScript/" style="font-size: 10px;">TypeScript</a> <a href="/tags/antDesign/" style="font-size: 13.33px;">antDesign</a> <a href="/tags/antdsign/" style="font-size: 12.22px;">antdsign</a> <a href="/tags/axios/" style="font-size: 10px;">axios</a> <a href="/tags/echarts/" style="font-size: 10px;">echarts</a> <a href="/tags/git/" style="font-size: 14.44px;">git</a> <a href="/tags/less/" style="font-size: 10px;">less</a> <a href="/tags/map坐标/" style="font-size: 10px;">map坐标</a> <a href="/tags/moment/" style="font-size: 10px;">moment</a> <a href="/tags/react/" style="font-size: 17.78px;">react</a> <a href="/tags/redux/" style="font-size: 10px;">redux</a> <a href="/tags/state/" style="font-size: 10px;">state</a> <a href="/tags/webPack/" style="font-size: 14.44px;">webPack</a> <a href="/tags/webpack/" style="font-size: 15.56px;">webpack</a> <a href="/tags/前端/" style="font-size: 20px;">前端</a> <a href="/tags/基础/" style="font-size: 14.44px;">基础</a> <a href="/tags/基础认知/" style="font-size: 10px;">基础认知</a> <a href="/tags/安全/" style="font-size: 10px;">安全</a> <a href="/tags/实践/" style="font-size: 16.67px;">实践</a> <a href="/tags/小文章/" style="font-size: 10px;">小文章</a> <a href="/tags/工具/" style="font-size: 14.44px;">工具</a> <a href="/tags/异步/" style="font-size: 13.33px;">异步</a> <a href="/tags/数据结构/" style="font-size: 11.11px;">数据结构</a> <a href="/tags/数组/" style="font-size: 10px;">数组</a> <a href="/tags/栈/" style="font-size: 10px;">栈</a> <a href="/tags/样式/" style="font-size: 10px;">样式</a> <a href="/tags/渲染/" style="font-size: 10px;">渲染</a> <a href="/tags/算法/" style="font-size: 10px;">算法</a> <a href="/tags/组件/" style="font-size: 10px;">组件</a> <a href="/tags/编程规范/" style="font-size: 10px;">编程规范</a> <a href="/tags/表格/" style="font-size: 13.33px;">表格</a> <a href="/tags/规范/" style="font-size: 10px;">规范</a> <a href="/tags/语言/" style="font-size: 11.11px;">语言</a> <a href="/tags/面试/" style="font-size: 10px;">面试</a> <a href="/tags/面试ES6基础/" style="font-size: 10px;">面试ES6基础</a>
+    </div>
+</div>
+
+    
+        
+<div class="card widget">
+    <div class="card-content">
+        <h3 class="menu-label">
+            最新文章
+        </h3>
+        
+        <article class="media">
+            
+            <a href="/2023/10/28/查找算法/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/tools.jpg" alt="查找算法">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2023-10-28T02:00:00.000Z">2023-10-28</time></div>
+                    <a href="/2023/10/28/查找算法/" class="has-link-black-ter is-size-6">查找算法</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/算法/">算法</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2020/11/01/Async-Await简介与用法/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/key.jpg" alt="Async/Await简介与用法">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2020-11-01T02:00:00.000Z">2020-11-01</time></div>
+                    <a href="/2020/11/01/Async-Await简介与用法/" class="has-link-black-ter is-size-6">Async/Await简介与用法</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/前端异步/">前端异步</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2020/11/01/CSRF攻击方式/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/safe.jpg" alt="CSRF攻击方式">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2020-11-01T02:00:00.000Z">2020-11-01</time></div>
+                    <a href="/2020/11/01/CSRF攻击方式/" class="has-link-black-ter is-size-6">CSRF攻击方式</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/安全/">安全</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2020/11/01/JavaScript的原生函数/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/tree.jpg" alt="原生函数">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2020-11-01T02:00:00.000Z">2020-11-01</time></div>
+                    <a href="/2020/11/01/JavaScript的原生函数/" class="has-link-black-ter is-size-6">原生函数</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/重学前端/">重学前端</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2020/11/01/JavaScript的数组/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/handle.jpg" alt="JavaScript的数组">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2020-11-01T02:00:00.000Z">2020-11-01</time></div>
+                    <a href="/2020/11/01/JavaScript的数组/" class="has-link-black-ter is-size-6">JavaScript的数组</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/数据结构/">数据结构</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+    </div>
+</div>
+
+    
+        <div class="card widget">
+    <div class="card-content">
+        <div class="menu">
+        <h3 class="menu-label">
+            归档
+        </h3>
+        <ul class="menu-list">
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2023/10/">
+                <span class="level-start">
+                    <span class="level-item">十月 2023</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">1</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2020/11/">
+                <span class="level-start">
+                    <span class="level-item">十一月 2020</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">55</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2019/07/">
+                <span class="level-start">
+                    <span class="level-item">七月 2019</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">1</span>
+                </span>
+            </a>
+        </li>
+        
+        </ul>
+        </div>
+    </div>
+</div>
+    
+        <div class="card widget">
+    <div class="card-content">
+        <div class="menu">
+            <h3 class="menu-label">
+                标签
+            </h3>
+            <div class="field is-grouped is-grouped-multiline">
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/CSS/">
+                        <span class="tag">CSS</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/HTTP/">
+                        <span class="tag">HTTP</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/JavaScript/">
+                        <span class="tag">JavaScript</span>
+                        <span class="tag is-grey">18</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/JavaScript1/">
+                        <span class="tag">JavaScript1</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/TypeScript/">
+                        <span class="tag">TypeScript</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/antDesign/">
+                        <span class="tag">antDesign</span>
+                        <span class="tag is-grey">4</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/antdsign/">
+                        <span class="tag">antdsign</span>
+                        <span class="tag is-grey">3</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/axios/">
+                        <span class="tag">axios</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/echarts/">
+                        <span class="tag">echarts</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/git/">
+                        <span class="tag">git</span>
+                        <span class="tag is-grey">5</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/less/">
+                        <span class="tag">less</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/map坐标/">
+                        <span class="tag">map坐标</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/moment/">
+                        <span class="tag">moment</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/react/">
+                        <span class="tag">react</span>
+                        <span class="tag is-grey">13</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/redux/">
+                        <span class="tag">redux</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/state/">
+                        <span class="tag">state</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/webPack/">
+                        <span class="tag">webPack</span>
+                        <span class="tag is-grey">5</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/webpack/">
+                        <span class="tag">webpack</span>
+                        <span class="tag is-grey">7</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/前端/">
+                        <span class="tag">前端</span>
+                        <span class="tag is-grey">41</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/基础/">
+                        <span class="tag">基础</span>
+                        <span class="tag is-grey">5</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/基础认知/">
+                        <span class="tag">基础认知</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/安全/">
+                        <span class="tag">安全</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/实践/">
+                        <span class="tag">实践</span>
+                        <span class="tag is-grey">8</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/小文章/">
+                        <span class="tag">小文章</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/工具/">
+                        <span class="tag">工具</span>
+                        <span class="tag is-grey">5</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/异步/">
+                        <span class="tag">异步</span>
+                        <span class="tag is-grey">4</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/数据结构/">
+                        <span class="tag">数据结构</span>
+                        <span class="tag is-grey">2</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/数组/">
+                        <span class="tag">数组</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/栈/">
+                        <span class="tag">栈</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/样式/">
+                        <span class="tag">样式</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/渲染/">
+                        <span class="tag">渲染</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/算法/">
+                        <span class="tag">算法</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/组件/">
+                        <span class="tag">组件</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/编程规范/">
+                        <span class="tag">编程规范</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/表格/">
+                        <span class="tag">表格</span>
+                        <span class="tag is-grey">4</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/规范/">
+                        <span class="tag">规范</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/语言/">
+                        <span class="tag">语言</span>
+                        <span class="tag is-grey">2</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/面试/">
+                        <span class="tag">面试</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/面试ES6基础/">
+                        <span class="tag">面试ES6基础</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+            </div>
+        </div>
+    </div>
+</div>
+    
+    
+        <div class="column-right-shadow is-hidden-widescreen ">
+        
+        </div>
+    
+</div>
+
+                
+            </div>
+        </div>
+    </section>
+    <footer class="footer">
+    <div class="container">
+        <div class="level">
+            <div class="level-start has-text-centered-mobile">
+                <a class="footer-logo is-block has-mb-6" href="/">
+                
+                    <img src="/images/logo.png" alt="less语法基础" height="28">
+                
+                </a>
+                <p class="is-size-7">
+                &copy; 2023 Kim Jin&nbsp;
+                Powered by <a href="https://hexo.io/" target="_blank">Hexo</a> & <a href="https://github.com/ppoffice/hexo-theme-icarus" target="_blank">Icarus</a>
+                
+                </p>
+            </div>
+            <div class="level-end">
+            
+                <div class="field has-addons is-flex-center-mobile has-mt-5-mobile is-flex-wrap is-flex-middle">
+                
+                
+                <p class="control">
+                    <a class="button is-white is-large" target="_blank" title="Creative Commons" href="https://creativecommons.org/">
+                        
+                        <i class="fab fa-creative-commons"></i>
+                        
+                    </a>
+                </p>
+                
+                <p class="control">
+                    <a class="button is-white is-large" target="_blank" title="Attribution 4.0 International" href="https://creativecommons.org/licenses/by/4.0/">
+                        
+                        <i class="fab fa-creative-commons-by"></i>
+                        
+                    </a>
+                </p>
+                
+                <p class="control">
+                    <a class="button is-white is-large" target="_blank" title="Download on GitHub" href="https://github.com/ppoffice/hexo-theme-icarus">
+                        
+                        <i class="fab fa-github"></i>
+                        
+                    </a>
+                </p>
+                
+                </div>
+            
+            </div>
+        </div>
+    </div>
+</footer>
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/moment@2.22.2/min/moment-with-locales.min.js"></script>
+<script>moment.locale("zh-CN");</script>
+
+
+    
+    
+    
+    <script src="/js/animation.js"></script>
+    
+
+    
+    
+    
+    <script src="https://cdn.jsdelivr.net/npm/lightgallery@1.6.8/dist/js/lightgallery.min.js" defer></script>
+    <script src="https://cdn.jsdelivr.net/npm/justifiedGallery@3.7.0/dist/js/jquery.justifiedGallery.min.js" defer></script>
+    <script src="/js/gallery.js" defer></script>
+    
+
+    
+    
+
+<div id="outdated">
+    <h6>Your browser is out-of-date!</h6>
+    <p>Update your browser to view this website correctly. <a id="btnUpdateBrowser" href="http://outdatedbrowser.com/">Update
+            my browser now </a></p>
+    <p class="last"><a href="#" id="btnCloseUpdateBrowser" title="Close">&times;</a></p>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/outdatedbrowser@1.1.5/outdatedbrowser/outdatedbrowser.min.js" defer></script>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        outdatedBrowser({
+            bgColor: '#f25648',
+            color: '#ffffff',
+            lowerThan: 'flex'
+        });
+    });
+</script>
+
+
+    
+    
+<script src="https://cdn.jsdelivr.net/npm/mathjax@2.7.5/unpacked/MathJax.js?config=TeX-MML-AM_CHTML" defer></script>
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    MathJax.Hub.Config({
+        'HTML-CSS': {
+            matchFontHeight: false
+        },
+        SVG: {
+            matchFontHeight: false
+        },
+        CommonHTML: {
+            matchFontHeight: false
+        },
+        tex2jax: {
+            inlineMath: [
+                ['$','$'],
+                ['\\(','\\)']
+            ]
+        }
+    });
+});
+</script>
+
+    
+    
+
+<a id="back-to-top" title="回到顶端" href="javascript:;">
+    <i class="fas fa-chevron-up"></i>
+</a>
+<script src="/js/back-to-top.js" defer></script>
+
+
+    
+    
+
+    
+    
+    
+    
+
+    
+    
+    
+    
+    
+    <script src="https://cdn.jsdelivr.net/npm/clipboard@2.0.4/dist/clipboard.min.js" defer></script>
+    <script src="/js/clipboard.js" defer></script>
+    
+
+    
+    
+    
+
+
+<script src="/js/main.js" defer></script>
+
+    
+    <div class="searchbox ins-search">
+    <div class="searchbox-container ins-search-container">
+        <div class="searchbox-input-wrapper">
+            <input type="text" class="searchbox-input ins-search-input" placeholder="想要查找什么...">
+            <span class="searchbox-close ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="searchbox-result-wrapper ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+    (function (window) {
+        var INSIGHT_CONFIG = {
+            TRANSLATION: {
+                POSTS: '文章',
+                PAGES: '页面',
+                CATEGORIES: '分类',
+                TAGS: '标签',
+                UNTITLED: '(无标题)',
+            },
+            CONTENT_URL: '/content.json',
+        };
+        window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+    })(window);
+</script>
+<script src="/js/insight.js" defer></script>
+<link rel="stylesheet" href="/css/search.css">
+<link rel="stylesheet" href="/css/insight.css">
+    
+</body>
+</html>

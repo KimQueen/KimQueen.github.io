@@ -1,0 +1,1564 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head><meta name="generator" content="Hexo 3.9.0">
+    <meta charset="utf-8">
+<title>Async/Await简介与用法 - Kim</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+
+
+    <meta name="description" content="关于TypeScriptTypeScript是JavaScript的超集，主要提供类型系统和对ES6的支持，由Microsoft开发，第一个版本发布于2012。 TypeScript的优势 TypeScript增加了代码的可读性和可维护性  大部分的函数函数看看类型的定义就已经知道该如何使用了 可以在编译的阶段就发现了大量的错误，防止在运行中发现过多的错误 增强了编辑器和IDE的功能。  Type">
+<meta name="keywords" content="前端,语言,TypeScript">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Async&#x2F;Await简介与用法">
+<meta property="og:url" content="https://kimqueen.github.io/kim.github.io/2020/11/01/TypeScript的入门/index.html">
+<meta property="og:site_name" content="Kim">
+<meta property="og:description" content="关于TypeScriptTypeScript是JavaScript的超集，主要提供类型系统和对ES6的支持，由Microsoft开发，第一个版本发布于2012。 TypeScript的优势 TypeScript增加了代码的可读性和可维护性  大部分的函数函数看看类型的定义就已经知道该如何使用了 可以在编译的阶段就发现了大量的错误，防止在运行中发现过多的错误 增强了编辑器和IDE的功能。  Type">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="https://kimqueen.github.io/images/brain.jpg">
+<meta property="og:updated_time" content="2020-11-01T02:00:00.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Async&#x2F;Await简介与用法">
+<meta name="twitter:description" content="关于TypeScriptTypeScript是JavaScript的超集，主要提供类型系统和对ES6的支持，由Microsoft开发，第一个版本发布于2012。 TypeScript的优势 TypeScript增加了代码的可读性和可维护性  大部分的函数函数看看类型的定义就已经知道该如何使用了 可以在编译的阶段就发现了大量的错误，防止在运行中发现过多的错误 增强了编辑器和IDE的功能。  Type">
+<meta name="twitter:image" content="https://kimqueen.github.io/images/brain.jpg">
+
+
+
+
+
+
+
+<link rel="icon" href="/images/favicon.svg">
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.7.2/css/bulma.css">
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Ubuntu:400,600|Source+Code+Pro">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@9.12.0/styles/atom-one-dark.css">
+
+
+    
+    
+    
+    <style>body>.footer,body>.navbar,body>.section{opacity:0}</style>
+    
+
+    
+    
+    
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lightgallery@1.6.8/dist/css/lightgallery.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/justifiedGallery@3.7.0/dist/css/justifiedGallery.min.css">
+    
+
+    
+    
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/outdatedbrowser@1.1.5/outdatedbrowser/outdatedbrowser.min.css">
+
+
+    
+    
+    
+    
+
+<link rel="stylesheet" href="/css/back-to-top.css">
+
+
+    
+    
+
+    
+    
+    
+    
+
+    
+    
+<link rel="stylesheet" href="/css/progressbar.css">
+<script src="https://cdn.jsdelivr.net/npm/pace-js@1.0.2/pace.min.js"></script>
+
+    
+    
+    
+
+    
+    
+    
+
+
+<link rel="stylesheet" href="/css/style.css">
+</head>
+<body class="is-2-column">
+    <nav class="navbar navbar-main">
+    <div class="container">
+        <div class="navbar-brand is-flex-center">
+            <a class="navbar-item navbar-logo" href="/">
+            
+                <img src="/images/logo.png" alt="Async/Await简介与用法" height="28">
+            
+            </a>
+        </div>
+        <div class="navbar-menu">
+            
+            <div class="navbar-start">
+                
+                <a class="navbar-item" href="/">主页</a>
+                
+                <a class="navbar-item" href="/archives">归档</a>
+                
+                <a class="navbar-item" href="/categories">分类</a>
+                
+                <a class="navbar-item" href="/tags">标签</a>
+                
+                <a class="navbar-item" href="/about">关于</a>
+                
+            </div>
+            
+            <div class="navbar-end">
+                
+                    
+                    
+                    <a class="navbar-item" target="_blank" title="Download on GitHub" href="https://github.com/ppoffice/hexo-theme-icarus">
+                        
+                        <i class="fab fa-github"></i>
+                        
+                    </a>
+                    
+                
+                
+                <a class="navbar-item is-hidden-tablet catalogue" title="目录" href="javascript:;">
+                    <i class="fas fa-list-ul"></i>
+                </a>
+                
+                
+                <a class="navbar-item search" title="搜索" href="javascript:;">
+                    <i class="fas fa-search"></i>
+                </a>
+                
+            </div>
+        </div>
+    </div>
+</nav>
+    
+    <section class="section">
+        <div class="container">
+            <div class="columns">
+                <div class="column is-8-tablet is-8-desktop is-8-widescreen has-order-2 column-main"><div class="card">
+    
+    <div class="card-image">
+        <span class="image is-7by1">
+            <img class="thumbnail" src="/images/brain.jpg" alt="Async/Await简介与用法">
+        </span>
+    </div>
+    
+    <div class="card-content article ">
+        
+        <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
+            <div class="level-left">
+                <time class="level-item has-text-grey" datetime="2020-11-01T02:00:00.000Z">2020-11-01</time>
+                
+                <div class="level-item">
+                <a class="has-link-grey -link" href="/categories/前端编程语言/">前端编程语言</a>
+                </div>
+                
+                
+                <span class="level-item has-text-grey">
+                    
+                    
+                    33 分钟 读完 (大约 4997 个字)
+                </span>
+                
+                
+            </div>
+        </div>
+        
+        <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
+            
+                Async/Await简介与用法
+            
+        </h1>
+        <div class="content">
+            <h2 id="关于TypeScript"><a href="#关于TypeScript" class="headerlink" title="关于TypeScript"></a>关于TypeScript</h2><p><code>TypeScript</code>是<code>JavaScript</code>的超集，主要提供类型系统和对<code>ES6</code>的支持，由<code>Microsoft</code>开发，第一个版本发布于2012。</p>
+<h2 id="TypeScript的优势"><a href="#TypeScript的优势" class="headerlink" title="TypeScript的优势"></a>TypeScript的优势</h2><ul>
+<li><p><code>TypeScript</code>增加了代码的可读性和可维护性</p>
+<ul>
+<li>大部分的函数函数看看类型的定义就已经知道该如何使用了</li>
+<li>可以在编译的阶段就发现了大量的错误，防止在运行中发现过多的错误</li>
+<li>增强了编辑器和<code>IDE</code>的功能。 </li>
+<li><code>TypeScript</code>非常的包容</li>
+<li><code>TypeScript</code>是<code>JavaScript</code>的超集，<code>.js</code>文件可以直接将名字转换为<code>.ts</code>即可</li>
+<li>即使不显式的定义类型，也可以自动的做出类型的推论</li>
+<li>可以定义从简单到复杂的一切类型</li>
+<li>即使<code>TypeScript</code>编译报错，也可以生成<code>JavaScript</code>文件</li>
+</ul>
+<a id="more"></a>
+<h2 id="TypeScript的劣势"><a href="#TypeScript的劣势" class="headerlink" title="TypeScript的劣势"></a>TypeScript的劣势</h2><ul>
+<li>需要一定的学习成本，需要理解接口(<code>Interfaces</code>)、泛型(<code>Generics</code>)、类(<code>Classes</code>)、枚举类型(<code>Enums</code>)等前端工程师不是很熟悉的东西，而且现阶段的中文资料也不是很多</li>
+<li>短期内可能增加一些开发成本，毕竟要多写一些类型的定义，不过对于一个需要长期进行维护的额项目。<code>TypeScript</code>能够减少维护的成本</li>
+<li>集成到构建流程需要一定的工作量</li>
+<li>可能和一些库结合的并不是很完美<h2 id="原始数据类型"><a href="#原始数据类型" class="headerlink" title="原始数据类型"></a>原始数据类型</h2>对于前端开发来说，主要的类型可以 分成两部分：原始数据类型和对象类型。原始数据类型包括：<code>布尔值</code>，<code>数值</code>，<code>字符串</code>，<code>null</code>，<code>undefined</code>以及ES6中的新类型<code>symbol</code>。现在我们主要看一下这些原始值在<code>TypeScript</code>中的应用。<h4 id="布尔值"><a href="#布尔值" class="headerlink" title="布尔值"></a>布尔值</h4>布尔值是最基本的数据类型，在<code>TypeScript</code>中，使用<code>Boolean</code>定义布尔值类型：<figure class="highlight typescript hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-keyword">let</span> isTrue:<span class="hljs-built_in">boolean</span> = <span class="hljs-literal">false</span>;</span><br><span class="line"></span><br><span class="line"><span class="hljs-comment">// 可以通过编译</span></span><br><span class="line"><span class="hljs-comment">// 对于后面来说，没有特殊强调错误代码片段，就默认为编译通过了。</span></span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+</li>
+</ul>
+<p>注意一下，使用构造函数<code>Boolean</code>创建的对象不是布尔值：</p>
+<figure class="highlight typescript hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-keyword">let</span> createdByNewBoolean : <span class="hljs-built_in">boolean</span> = <span class="hljs-keyword">new</span> <span class="hljs-built_in">Boolean</span>(<span class="hljs-number">1</span>);</span><br><span class="line"></span><br><span class="line"><span class="hljs-comment">// index.ts(1,5): error TS2322: Type 'Boolean' is not assignable to type 'boolean'.</span></span><br></pre></td></tr></table></figure>
+
+<p>上面代码报错的原因是<code>new Boolean()</code>返回一个<code>Boolean</code>对象：</p>
+<figure class="highlight typescript hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-keyword">let</span> createdByNewBoolean : <span class="hljs-built_in">Boolean</span>= <span class="hljs-keyword">new</span> <span class="hljs-built_in">Boolean</span>(<span class="hljs-number">1</span>);</span><br></pre></td></tr></table></figure>
+
+<p>直接调用<code>Boolean</code>也可以返回一个 <code>boolean</code> 类型：</p>
+<figure class="highlight typescript hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-keyword">let</span> createdByBoolean: <span class="hljs-built_in">boolean</span> = <span class="hljs-built_in">Boolean</span>(<span class="hljs-number">1</span>);</span><br></pre></td></tr></table></figure>
+
+<p>在<code>TypeScript</code>中，<code>boolean</code> 是 <code>JavaScript</code>中的基本类型，而<code>Boolean</code> 是 <code>JavaScript</code> 中的构造函数。其他基本类型（除了 <code>null</code>和 <code>undefined</code>）一样，不再赘述。</p>
+<h4 id="数值"><a href="#数值" class="headerlink" title="数值"></a>数值</h4><p>使用<code>nubmber</code>定义数值类型：</p>
+<figure class="highlight typescript hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-keyword">let</span> decLiteral:<span class="hljs-built_in">number</span>=<span class="hljs-number">6</span>;</span><br><span class="line"><span class="hljs-keyword">let</span> hexLiteral:<span class="hljs-built_in">number</span> = <span class="hljs-number">0xf00d</span>;</span><br><span class="line"><span class="hljs-keyword">let</span> binaryLiteral:<span class="hljs-built_in">number</span> = <span class="hljs-number">0b1010</span>; <span class="hljs-comment">// ES6中的二进制表示法</span></span><br><span class="line"><span class="hljs-keyword">let</span> octalLiteral:<span class="hljs-built_in">number</span> =<span class="hljs-number">0o744</span>;<span class="hljs-comment">// ES6中的八进制表示法</span></span><br><span class="line"><span class="hljs-keyword">let</span> notNumber:<span class="hljs-built_in">number</span> =<span class="hljs-literal">NaN</span>;</span><br><span class="line"><span class="hljs-keyword">let</span> infinityNumber:<span class="hljs-built_in">number</span> = <span class="hljs-literal">Infinity</span>;</span><br></pre></td></tr></table></figure>
+
+<p>上面的编译的结果是什么：</p>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">var decLiteral = 6;</span><br><span class="line">var hexLiteral = 0xf00d;</span><br><span class="line">var binaryLiteral = 10;</span><br><span class="line">var octalLiteral= 484;</span><br><span class="line">var notNumber = NaN;</span><br><span class="line">var infinityNumber = Infinity;</span><br></pre></td></tr></table></figure>
+
+<p>其中<code>0b1010</code> 和 <code>0o744</code> 是<code>ES6</code> 中的二进制和八进制表示法，它们会被编译为十进制数字。</p>
+<h4 id="字符串"><a href="#字符串" class="headerlink" title="字符串"></a>字符串</h4><p>使用<code>string</code>定义字符串类型：</p>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">// 普通字符串</span><br><span class="line">let myName:string = &apos;kim&apos;;</span><br><span class="line">let myAge:number = 25;</span><br><span class="line"></span><br><span class="line">// 模板字符串</span><br><span class="line">let sentence:string = `Hello,my name is $&#123;myName&#125;.</span><br><span class="line">I&apos;ll be $&#123;myAge + 1&#125; years old next month`;</span><br></pre></td></tr></table></figure>
+
+<p>编译结果：</p>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">var myName = &apos;kim&apos;;</span><br><span class="line">var myAge = 25;</span><br><span class="line"></span><br><span class="line">// 模板字符串</span><br><span class="line">let sentence = &quot;Hello,my name is&quot;+myName+&quot;.\nI&apos;will be&quot;+(myAge+1)+&quot;years old next month&quot;;</span><br></pre></td></tr></table></figure>
+
+<h4 id="空值"><a href="#空值" class="headerlink" title="空值"></a>空值</h4><p><code>JavaScript</code>没有空值(<code>void</code>)的概念，在<code>TypeScript</code>中，可以用<code>void</code>表示没有任何返回值的函数。</p>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">function akertName():void&#123;</span><br><span class="line">  alert(&apos;My name is kim&apos;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>声明一个<code>void</code>类型变量是没有什么用，因为我们只能将它赋值为<code>undefined</code>和<code>null</code>:</p>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">let unusable:void = undefined</span><br></pre></td></tr></table></figure>
+
+<h4 id="Null和undefined"><a href="#Null和undefined" class="headerlink" title="Null和undefined"></a>Null和undefined</h4><p>在<code>TypeScript</code>中，可以使用<code>null</code>和<code>undefined</code>来定义这两个原始数据类型：</p>
+<figure class="highlight typescript hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-keyword">let</span> u:<span class="hljs-literal">undefined</span> = <span class="hljs-literal">undefined</span>;</span><br><span class="line"><span class="hljs-keyword">let</span> n:<span class="hljs-literal">null</span> = <span class="hljs-literal">null</span>;</span><br></pre></td></tr></table></figure>
+
+<p><code>undefined</code>只能赋值为<code>undefined</code>，<code>null</code>只能赋值为<code>null</code>。但是这二者和<code>void</code>还是有区别的，<code>null</code>和<code>undefined</code>是所有类型的子类型，也就是说<code>undefined</code>类型的变量，可以赋值给<code>number</code>类型的变量：</p>
+<figure class="highlight typescript hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-comment">//这样写也是没有问题的</span></span><br><span class="line"><span class="hljs-keyword">let</span> num:<span class="hljs-built_in">number</span> =<span class="hljs-literal">undefined</span>;</span><br><span class="line"><span class="hljs-keyword">let</span> u: <span class="hljs-literal">undefined</span>;</span><br><span class="line"><span class="hljs-keyword">let</span> num: <span class="hljs-built_in">number</span> = u;</span><br></pre></td></tr></table></figure>
+
+<p>但是<code>void</code>的类型并不是这样的，不能讲<code>void</code>类型的变量不能赋值给<code>number</code>类型的变量：</p>
+<figure class="highlight typescript hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-keyword">let</span> u: <span class="hljs-built_in">void</span>;</span><br><span class="line"><span class="hljs-keyword">let</span> num: <span class="hljs-built_in">number</span> = u;</span><br><span class="line"></span><br><span class="line"><span class="hljs-comment">//index.ts(2,5): error TS2322: Type 'void' is not assignable to type 'number'.</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="任意值"><a href="#任意值" class="headerlink" title="任意值"></a>任意值</h2><p>任意值（<code>Any</code>）用来表示允许赋值为任意类型。</p>
+<h4 id="什么是任意值类型"><a href="#什么是任意值类型" class="headerlink" title="什么是任意值类型"></a>什么是任意值类型</h4><p>如果是一个普通类型，在赋值过程中改变类型是不被允许的:</p>
+<figure class="highlight typescript hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-keyword">let</span> myFavoriteNumber:<span class="hljs-built_in">string</span> =<span class="hljs-string">'seven'</span>;</span><br><span class="line">myFavoriteNumber = <span class="hljs-number">7</span>;</span><br><span class="line"></span><br><span class="line"><span class="hljs-comment">// index.ts(2,1): error TS2322: Type 'number' is not assignable to type 'string'.</span></span><br></pre></td></tr></table></figure>
+
+<p>但如果是 <code>any</code> 类型，则允许被赋值为任意类型。</p>
+<figure class="highlight typescript hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-keyword">let</span> myFavoriteNumber : <span class="hljs-built_in">any</span> =<span class="hljs-string">'seven'</span>;</span><br><span class="line">myFavoriteNumber = <span class="hljs-number">7</span>;</span><br></pre></td></tr></table></figure>
+
+<h4 id="任意值的属性和方法"><a href="#任意值的属性和方法" class="headerlink" title="任意值的属性和方法"></a>任意值的属性和方法</h4><p>在任何值上访问任何属性都是允许的：</p>
+<figure class="highlight typescript hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-keyword">let</span> anyThing :<span class="hljs-built_in">any</span> = <span class="hljs-string">'hello'</span>;</span><br><span class="line"><span class="hljs-built_in">console</span>.log(anyThing.myName);</span><br><span class="line"><span class="hljs-built_in">console</span>.log(anyThing.myName.firstName);</span><br></pre></td></tr></table></figure>
+
+<p>也允许调用任何方法：</p>
+<figure class="highlight typescript hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-keyword">let</span> anyThing : <span class="hljs-built_in">any</span> = <span class="hljs-string">'kim'</span>;</span><br><span class="line">anyThing.setName(<span class="hljs-string">'Tom'</span>);</span><br><span class="line">anyThing.setName(<span class="hljs-string">'Tom'</span>).sayHello();</span><br><span class="line">anyThing.myName.setFirstName(<span class="hljs-string">'kim'</span>);</span><br></pre></td></tr></table></figure>
+
+<p>可以认为，声明一个变量为任意值之后，对它的任何操作，返回的内容的类型都是任意值。</p>
+<h4 id="未声明类型的变量"><a href="#未声明类型的变量" class="headerlink" title="未声明类型的变量"></a>未声明类型的变量</h4><p>变量如果在声明的时候，未指定其类型，那么它会被识别为任意值类型：</p>
+<figure class="highlight typescript hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-keyword">let</span> something;</span><br><span class="line">something = <span class="hljs-string">'seven'</span>;</span><br><span class="line">something = <span class="hljs-number">7</span>;</span><br><span class="line">something.setName(<span class="hljs-string">'kim'</span>);</span><br></pre></td></tr></table></figure>
+
+<p>上面的代码等价于：</p>
+<figure class="highlight typescript hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-keyword">let</span> something:<span class="hljs-built_in">any</span>;</span><br><span class="line">something = <span class="hljs-string">'seven'</span>;</span><br><span class="line">something = <span class="hljs-number">7</span>;</span><br><span class="line">something.setName(<span class="hljs-string">'kim'</span>);</span><br></pre></td></tr></table></figure>
+
+<h2 id="类型推论"><a href="#类型推论" class="headerlink" title="类型推论"></a>类型推论</h2><p>如果没有明确的字段，那么<code>TypeScript</code>会依照类型推论的规则判断出一个类型。<br>下面的代码虽然没有指定类型，但是会在编译的时候报错：</p>
+<figure class="highlight typescript hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-keyword">let</span> myFavoriteNumber = <span class="hljs-string">'seven'</span>;</span><br><span class="line">myFavoriteNumber = <span class="hljs-number">7</span>;</span><br><span class="line"></span><br><span class="line"><span class="hljs-comment">// index.ts(2,1): error TS2322: Type 'number' is not assignable to type 'string'.</span></span><br></pre></td></tr></table></figure>
+
+<p>上面的代码等价于：</p>
+<figure class="highlight typescript hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-keyword">let</span> myFavoriteNumber:<span class="hljs-built_in">string</span>  = <span class="hljs-string">'seven'</span>;</span><br><span class="line">myFavoriteNumber = <span class="hljs-number">7</span>;</span><br><span class="line"></span><br><span class="line"><span class="hljs-comment">// index.ts(2,1): error TS2322: Type 'number' is not assignable to type 'string'.</span></span><br></pre></td></tr></table></figure>
+
+<p>但是为什么这和<code>any</code>类型的还是有区别的，二者的区别在于在声明的时候没有赋值的话，就会判断成<code>any</code>类型，在后续就不会再进行检查。</p>
+<h2 id="联合类型"><a href="#联合类型" class="headerlink" title="联合类型"></a>联合类型</h2><p>联合类型表示取值可以为多种类型中的一种。<br>让我们先举个小栗子：</p>
+<figure class="highlight typescript hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-keyword">let</span> myFavoriteNumber:<span class="hljs-built_in">string</span> | <span class="hljs-built_in">number</span>;</span><br><span class="line">myFavoriteNumber = <span class="hljs-string">'seven'</span>;</span><br><span class="line">myFavoriteNumber = <span class="hljs-number">7</span>;</span><br></pre></td></tr></table></figure>
+
+<p>上面的例子说明<code>myFavoriteNumber</code>可以是<code>string</code>类型或是<code>number</code>类型的。但是如果我们给这个值给一个布尔值，就会报错。</p>
+<figure class="highlight typescript hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-keyword">let</span> myFavoriteNumber:<span class="hljs-built_in">string</span> | <span class="hljs-built_in">number</span>;</span><br><span class="line">myFavoriteNumber = <span class="hljs-literal">true</span>;</span><br><span class="line"></span><br><span class="line"><span class="hljs-comment">// index.ts(2,1): error TS2322: Type 'boolean' is not assignable to type 'string | number'.</span></span><br><span class="line"><span class="hljs-comment">// Type 'boolean' is not assignable to type 'number'.</span></span><br></pre></td></tr></table></figure>
+
+<p>联合类型使用 | 分隔每个类型。<br>这里的<code>string|number</code>的意思是，允许<code>myFavoriteNumber</code>的类型是<code>string</code>或是<code>number</code>，但是不能是其他类型。</p>
+<h4 id="访问联合类型的属性或方法"><a href="#访问联合类型的属性或方法" class="headerlink" title="访问联合类型的属性或方法"></a>访问联合类型的属性或方法</h4><p>当<code>TypeScript</code>不确定一个联合类型的变量到底是哪个类型的时候，我们只能访问此联合类型的所有类型里共有的属性和方法：</p>
+<figure class="highlight typescript hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">getLength</span>(<span class="hljs-params">something: <span class="hljs-built_in">string</span> | <span class="hljs-built_in">number</span></span>): <span class="hljs-title">number</span> </span>&#123;</span><br><span class="line">  <span class="hljs-keyword">return</span> something.length;</span><br><span class="line">&#125;</span><br><span class="line"><span class="hljs-comment">// index.ts(2,20): error TS2339: Property 'length' does not exist on type 'string | number'.</span></span><br><span class="line"><span class="hljs-comment">// Property 'length' does not exist on type 'number'.</span></span><br></pre></td></tr></table></figure>
+
+<p>上例中，<code>length</code> 不是<code>string</code> 和 <code>number</code> 的共有属性，所以会报错。<br>访问 string 和 number 的共有属性是没问题的：</p>
+<figure class="highlight typescript hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">getString</span>(<span class="hljs-params">something:<span class="hljs-built_in">string</span> | <span class="hljs-built_in">number</span></span>):<span class="hljs-title">string</span></span>&#123;</span><br><span class="line">  <span class="hljs-keyword">return</span> something.toString();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>联合类型的变量在被赋值的时候，会根据类型推论的规则推断出一个类型：</p>
+<figure class="highlight typescript hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-keyword">let</span> myFavoriteNumber:<span class="hljs-built_in">string</span>|<span class="hljs-built_in">number</span>;</span><br><span class="line">myFavoriteNumber = <span class="hljs-string">'seven'</span>;</span><br><span class="line"><span class="hljs-built_in">console</span>.log(myFavoriteNumber.length); <span class="hljs-comment">// 5</span></span><br><span class="line">myFavoriteNumber = <span class="hljs-number">7</span>;</span><br><span class="line"><span class="hljs-built_in">console</span>.log(myFavoriteNumber.length); <span class="hljs-comment">// 编译时报错</span></span><br><span class="line"> </span><br><span class="line"><span class="hljs-comment">// index.ts(5,30): error TS2339: Property 'length' does not exist on type 'number'.</span></span><br></pre></td></tr></table></figure>
+
+<p>上例中，第二行的 <code>myFavoriteNumber</code>被推断成了 <code>string</code>，访问它的<code>length</code>属性不会报错。<br>而第四行的<code>myFavoriteNumber</code> 被推断成了 <code>number</code>，访问它的 <code>length</code>属性时就报错了。</p>
+<h2 id="对象的类型-–-接口"><a href="#对象的类型-–-接口" class="headerlink" title="对象的类型 – 接口"></a>对象的类型 – 接口</h2><p>在<code>TypeScript</code>中，我们使用接口来定义对象的类型。</p>
+<h4 id="什么是接口"><a href="#什么是接口" class="headerlink" title="什么是接口"></a>什么是接口</h4><p>在面向对象的语言中，接口是一个很重要的概念，他是对行为的抽象，而具体如何行动需要类去实现。<code>TypeScript</code>中的接口就是一个很灵活的概念，除了可用于对类的一部分行为进行抽象以外，也常用于对【对象的形状】进行描述。<br>简单的例子：</p>
+<figure class="highlight typescript hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-keyword">interface</span> Person&#123;</span><br><span class="line">  name:<span class="hljs-built_in">string</span>;</span><br><span class="line">  age:<span class="hljs-built_in">number</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="hljs-keyword">let</span> kim:Person=&#123;</span><br><span class="line">  name:<span class="hljs-string">'kim'</span>,</span><br><span class="line">  age:<span class="hljs-number">18</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>在上面的例子中我们定义了一个接口<code>Person</code>，接着定义可一个变量<code>kim</code>，它的类型是<code>person</code>，这样，我们就约束了<code>kim</code>的形状和接口<code>Person</code>一致。<br>接口一般首字母大写。<br>接口的变量比接口少一些或是多一些属性是不允许的：</p>
+<figure class="highlight typescript hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-keyword">interface</span> Person &#123;</span><br><span class="line">  name: <span class="hljs-built_in">string</span>;</span><br><span class="line">  age: <span class="hljs-built_in">number</span>;</span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line"><span class="hljs-keyword">let</span> kim: Person = &#123;</span><br><span class="line">  name: <span class="hljs-string">'kim'</span>,</span><br><span class="line">&#125;;</span><br><span class="line"> </span><br><span class="line"><span class="hljs-comment">// index.ts(6,5): error TS2322: Type '&#123; name: string; &#125;' is not assignable to type 'Person'.</span></span><br><span class="line"><span class="hljs-comment">//   Property 'age' is missing in type '&#123; name: string; &#125;'.</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="hljs-keyword">interface</span> Person &#123;</span><br><span class="line">  name: <span class="hljs-built_in">string</span>;</span><br><span class="line">  age: <span class="hljs-built_in">number</span>;</span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line"><span class="hljs-keyword">let</span> kim: Person = &#123;</span><br><span class="line">  name: <span class="hljs-string">'kim,</span></span><br><span class="line"><span class="hljs-string">  age: 25,</span></span><br><span class="line"><span class="hljs-string">  website: '</span>http:<span class="hljs-comment">//kim.com',</span></span><br><span class="line">&#125;;</span><br><span class="line"> </span><br><span class="line"><span class="hljs-comment">// index.ts(9,3): error TS2322: Type '&#123; name: string; age: number; website: string; &#125;' is not assignable to type 'Person'.</span></span><br><span class="line"><span class="hljs-comment">//   Object literal may only specify known properties, and 'website' does not exist in type 'Person'.</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="可选属性"><a href="#可选属性" class="headerlink" title="可选属性"></a>可选属性</h4><p>有的时候我们希望不要完全匹配成一个形状，那么我们可用一些可选属性：</p>
+<figure class="highlight typescript hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-keyword">interface</span> Person &#123;</span><br><span class="line">  name: <span class="hljs-built_in">string</span>;</span><br><span class="line">  age?: <span class="hljs-built_in">number</span>;</span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line"><span class="hljs-keyword">let</span> kim: Person = &#123;</span><br><span class="line">  name: <span class="hljs-string">'kim'</span>,</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="hljs-keyword">let</span> kimi: Person = &#123;</span><br><span class="line">  name: <span class="hljs-string">'kimi'</span>,</span><br><span class="line">  age:<span class="hljs-number">28</span></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<p>可选属性的意思就是这个属性的值可以是不存在的，但是在这种情况下依旧不允许添加未定义的属性，我们在下面举个栗子：</p>
+<figure class="highlight typescript hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-keyword">let</span> Tom: Person = &#123;</span><br><span class="line">  name: <span class="hljs-string">'Tom'</span>,</span><br><span class="line">  age:<span class="hljs-number">28</span>,</span><br><span class="line">  website:<span class="hljs-string">'http://www.baidu.com'</span>,</span><br><span class="line">&#125;;</span><br><span class="line"><span class="hljs-comment">// examples/playground/index.ts(9,3): error TS2322:</span></span><br><span class="line"><span class="hljs-comment">// Type '&#123; name: string; age: number; website: string; &#125;' is not assignable to type 'Person'.</span></span><br><span class="line"><span class="hljs-comment">// Object literal may only specify known properties, and 'website' does not exist in type 'Person'.</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="任意属性"><a href="#任意属性" class="headerlink" title="任意属性"></a>任意属性</h4><p>有的时候我们希望几口允许任意的属性，可以使用如下的方式:</p>
+<figure class="highlight typescript hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-keyword">interface</span> Person&#123;</span><br><span class="line">  name:<span class="hljs-built_in">string</span>;</span><br><span class="line">  age?:<span class="hljs-built_in">number</span>;</span><br><span class="line">  [propName:<span class="hljs-built_in">string</span>]:<span class="hljs-built_in">any</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="hljs-keyword">let</span> kim :Person =&#123;</span><br><span class="line">  name:<span class="hljs-string">'kim'</span>,</span><br><span class="line">  website:<span class="hljs-string">'http://www.baidu.com'</span>,</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<p>我们对于上面的代码进行解析，使用<code>[propName:string]</code>定义了任意属性取<code>string</code>类型的值。但是需要注意的是，一旦定义了任意属性，那么确定属性和可选属性都必须是它的子属性：</p>
+<figure class="highlight typescript hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-keyword">interface</span> Person&#123;</span><br><span class="line">  name:<span class="hljs-built_in">string</span>;</span><br><span class="line">  age?:<span class="hljs-built_in">number</span>;</span><br><span class="line">  [propName:<span class="hljs-built_in">string</span>]:<span class="hljs-built_in">string</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="hljs-keyword">let</span> kim :Person =&#123;</span><br><span class="line">  name:<span class="hljs-string">'kim'</span>,</span><br><span class="line">  age:<span class="hljs-number">25</span>,</span><br><span class="line">  website:<span class="hljs-string">'http://www.baidu.com'</span>,</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="hljs-comment">// index.ts(3,3): error TS2411: </span></span><br><span class="line"><span class="hljs-comment">//Property 'age' of type 'number' is not assignable to string index type 'string'.</span></span><br><span class="line"><span class="hljs-comment">// index.ts(7,5): </span></span><br><span class="line"><span class="hljs-comment">//error TS2322: Type '&#123; [x: string]: string | number; name: string; age: number; website: string; &#125;' is not </span></span><br><span class="line"><span class="hljs-comment">//assignable to type 'Person'.</span></span><br><span class="line"><span class="hljs-comment">// Index signatures are incompatible.</span></span><br><span class="line"><span class="hljs-comment">//Type 'string | number' is not assignable to type 'string'.</span></span><br><span class="line"><span class="hljs-comment">//Type 'number' is not assignable to type 'string'.</span></span><br></pre></td></tr></table></figure>
+
+<p>上例中，任意属性的值允许是 <code>string</code>，但是可选属性 <code>age</code> 的值却是<code>number</code>，<code>number</code> 不是<code>string</code>的子属性，所以报错了。</p>
+<p>另外，在报错信息中可以看出，此时 <code>{ name: ‘Xcat Liu’, age: 25, website: ‘http://xcatliu.com’ }</code> 的类型被推断成了 <code>{ [x: string]: string | number; name: string; age: number; website: string; }</code>，这是联合类型和接口的结合。</p>
+<h4 id="只读属性"><a href="#只读属性" class="headerlink" title="只读属性"></a>只读属性</h4><p>有时候我们希望对象中的一些字段只能在创建的时候被赋值，那么可以用<code>readonly</code>定义只读属性：</p>
+<figure class="highlight typescript hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-keyword">interface</span> Person &#123;</span><br><span class="line">  readonly id: <span class="hljs-built_in">number</span>;</span><br><span class="line">  name: <span class="hljs-built_in">string</span>;</span><br><span class="line">  age?: <span class="hljs-built_in">number</span>;</span><br><span class="line">  [propName: <span class="hljs-built_in">string</span>]: <span class="hljs-built_in">any</span>;</span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line"><span class="hljs-keyword">let</span> xcatliu: Person = &#123;</span><br><span class="line">  id: <span class="hljs-number">89757</span>,</span><br><span class="line">  name: <span class="hljs-string">'kim'</span>,</span><br><span class="line">  website: <span class="hljs-string">'http://www.baidu.com'</span>,</span><br><span class="line">&#125;;</span><br><span class="line"> </span><br><span class="line">xcatliu.id = <span class="hljs-number">9527</span>;</span><br><span class="line"> </span><br><span class="line"><span class="hljs-comment">// index.ts(14,9): error TS2540: Cannot assign to 'id' because it is a constant or a read-only property.</span></span><br></pre></td></tr></table></figure>
+
+<p>上面的id属性是只读属性，<code>id</code>在初始化之后，又被赋值了，所以会报错。只读的约束存在于第一次给对象赋值的时候，而不是第一次给只读属性赋值的时候。</p>
+<figure class="highlight typescript hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-keyword">interface</span> Person &#123;</span><br><span class="line">  readonly id: <span class="hljs-built_in">number</span>;</span><br><span class="line">  name: <span class="hljs-built_in">string</span>;</span><br><span class="line">  age?: <span class="hljs-built_in">number</span>;</span><br><span class="line">  [propName: <span class="hljs-built_in">string</span>]: <span class="hljs-built_in">any</span>;</span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line"><span class="hljs-keyword">let</span> xcatliu: Person = &#123;  <span class="hljs-comment">// 没有给id进行赋值</span></span><br><span class="line">  name: <span class="hljs-string">'Xcat Liu'</span>,</span><br><span class="line">  website: <span class="hljs-string">'http://xcatliu.com'</span>,</span><br><span class="line">&#125;;</span><br><span class="line"> </span><br><span class="line">xcatliu.id = <span class="hljs-number">89757</span>; <span class="hljs-comment">// 错误</span></span><br><span class="line"> </span><br><span class="line"><span class="hljs-comment">// index.ts(8,5): error TS2322: Type '&#123; name: string; website: string; &#125;' is not assignable to type 'Person'.</span></span><br><span class="line"><span class="hljs-comment">//   Property 'id' is missing in type '&#123; name: string; website: string; &#125;'.</span></span><br><span class="line"><span class="hljs-comment">// index.ts(13,9): error TS2540: Cannot assign to 'id' because it is a constant or a read-only property.</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="数组的类型"><a href="#数组的类型" class="headerlink" title="数组的类型"></a>数组的类型</h2><h4 id="类型-方括号-表示法"><a href="#类型-方括号-表示法" class="headerlink" title="[类型+方括号]表示法"></a>[类型+方括号]表示法</h4><p>最简单的方法是使用<code>[类型+方括号]</code>来标识数组：</p>
+<figure class="highlight typescript hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-keyword">let</span> arr:<span class="hljs-built_in">number</span>[] =[<span class="hljs-number">1</span>,<span class="hljs-number">2</span>,<span class="hljs-number">3</span>,<span class="hljs-number">4</span>,<span class="hljs-number">5</span>]</span><br></pre></td></tr></table></figure>
+
+<p>数组的项中不允许出现其他的类型：</p>
+<figure class="highlight typescript hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-keyword">let</span> arr:<span class="hljs-built_in">number</span>[] =[<span class="hljs-number">1</span>,<span class="hljs-string">'2'</span>,<span class="hljs-number">3</span>,<span class="hljs-number">4</span>,<span class="hljs-number">5</span>];</span><br><span class="line"></span><br><span class="line"><span class="hljs-comment">//index.ts(1,5): error TS2322: Type '(number | string)[]' is not assignable to type 'number[]'.</span></span><br><span class="line"><span class="hljs-comment">//Type 'number | string' is not assignable to type 'number'.</span></span><br><span class="line"><span class="hljs-comment">//Type 'string' is not assignable to type 'number'.</span></span><br></pre></td></tr></table></figure>
+
+<p>现在的<code>[1,&#39;2&#39;,3,4,5]</code>的类型被推断称为<code>(number|string)[]</code>,这个是联合类型和数组的结合。</p>
+<figure class="highlight typescript hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-keyword">let</span> arr2: <span class="hljs-built_in">number</span>[] = [<span class="hljs-number">1</span>,<span class="hljs-number">2</span>,<span class="hljs-number">3</span>,<span class="hljs-number">4</span>,<span class="hljs-number">5</span>,<span class="hljs-number">6</span>,<span class="hljs-number">7</span>];</span><br><span class="line">arr2.push(<span class="hljs-string">'8'</span>)</span><br><span class="line"></span><br><span class="line"><span class="hljs-comment">//index.ts(2,16): error TS2345: Argument of type 'string' is </span></span><br><span class="line"><span class="hljs-comment">//not assignable to parameter of type 'number'.</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="数组泛型"><a href="#数组泛型" class="headerlink" title="数组泛型"></a>数组泛型</h4><p>也可以使用数组泛型（<code>Generic</code>） <code>Array&lt;elemType&gt;</code> 来表示数组：</p>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">let arr3: Array&lt;number&gt; = [1, 1, 2, 3, 5];</span><br></pre></td></tr></table></figure>
+
+<h4 id="用接口表示数组"><a href="#用接口表示数组" class="headerlink" title="用接口表示数组"></a>用接口表示数组</h4><p>接口也可以用来描述数组：</p>
+<figure class="highlight typescript hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-keyword">interface</span> NumberArray&#123;</span><br><span class="line">  [index:<span class="hljs-built_in">number</span>]:<span class="hljs-built_in">number</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="hljs-keyword">let</span> arr4 : NumberArray=[<span class="hljs-number">1</span>,<span class="hljs-number">1</span>,<span class="hljs-number">2</span>,<span class="hljs-number">3</span>,<span class="hljs-number">4</span>];</span><br></pre></td></tr></table></figure>
+
+<p><code>NumberArray</code> 表示：只要 <code>index</code> 的类型是 <code>number</code>，那么值的类型必须是 <code>number</code>。</p>
+<h4 id="any-在数组中的应用"><a href="#any-在数组中的应用" class="headerlink" title="any 在数组中的应用"></a>any 在数组中的应用</h4><p>一个比较常见的做法是，用<code>any</code>表示数组中允许出现任意类型：</p>
+<figure class="highlight typescript hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-keyword">let</span> list : <span class="hljs-built_in">any</span>[] =[<span class="hljs-string">'kim'</span>,<span class="hljs-number">25</span>,&#123;website:<span class="hljs-string">'www.baidu.com'</span>&#125;];</span><br></pre></td></tr></table></figure>
+
+<h4 id="类数组"><a href="#类数组" class="headerlink" title="类数组"></a>类数组</h4><p>类数组不是数组类型，比如<code>arguments</code>：</p>
+<figure class="highlight typescript hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">sum</span>(<span class="hljs-params"></span>)</span>&#123;</span><br><span class="line">  <span class="hljs-keyword">let</span> args:<span class="hljs-built_in">number</span>[] = <span class="hljs-built_in">arguments</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="hljs-comment">// index.ts(2,7): error TS2322: Type 'IArguments' is not assignable to type 'number[]'.</span></span><br><span class="line"><span class="hljs-comment">// Property 'push' is missing in type 'IArguments'.</span></span><br></pre></td></tr></table></figure>
+
+<p>事实上常见的类数组都有自己的接口定义，如 <code>Arguments</code>,<code>NodeList</code>, <code>HTMLCollection</code> 等：</p>
+<figure class="highlight typescript hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">sum</span>(<span class="hljs-params"></span>) </span>&#123;</span><br><span class="line">  <span class="hljs-keyword">let</span> args: IArguments = <span class="hljs-built_in">arguments</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="函数的类型"><a href="#函数的类型" class="headerlink" title="函数的类型"></a>函数的类型</h2><p>函数的声明<br>在<code>JavaScript</code>中，有两种常见的定义函数的方式–函数声明（<code>Function Declaration</code>）和函数表达式（<code>Function Expression</code>）：</p>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">// 函数声明（Function Declaration）</span><br><span class="line">function sum (x,y)&#123;</span><br><span class="line">  return x+y;</span><br><span class="line">&#125;</span><br><span class="line">//函数表达式（Function Expression）</span><br><span class="line">let mySum = function （x,y）&#123;</span><br><span class="line">  return x + y;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>一个函数有输入和输出，要在<code>TypeScript</code>中对齐进行约束，需要把输入和输出都考虑到，其中函数声明的类型定义比较简单：</p>
+<figure class="highlight typescript hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">sum</span> (<span class="hljs-params">x:<span class="hljs-built_in">number</span>,y:<span class="hljs-built_in">number</span></span>):<span class="hljs-title">number</span></span>&#123;</span><br><span class="line">  <span class="hljs-keyword">return</span> x+y;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>但是输出多余的(或少于要求)参数，是不被允许的：</p>
+<figure class="highlight typescript hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">sum</span> (<span class="hljs-params">x:<span class="hljs-built_in">number</span>,y:<span class="hljs-built_in">number</span></span>):<span class="hljs-title">number</span></span>&#123;</span><br><span class="line">  <span class="hljs-keyword">return</span> x+y;</span><br><span class="line">&#125;</span><br><span class="line">sum (<span class="hljs-number">1</span>,<span class="hljs-number">2</span>,<span class="hljs-number">3</span>);</span><br><span class="line"><span class="hljs-comment">// index.ts(4,1): error TS2346: Supplied parameters do not match any signature of call target.</span></span><br><span class="line"></span><br><span class="line">sum (<span class="hljs-number">1</span>);</span><br><span class="line"><span class="hljs-comment">//index.ts(4,1): error TS2346: Supplied parameters do not match any signature of call target.</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="函数表达式"><a href="#函数表达式" class="headerlink" title="函数表达式"></a>函数表达式</h4><p>如果我们现在想要写一个函数表达式的定义，我们可能会这样写：</p>
+<figure class="highlight typescript hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-keyword">let</span> muSum = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">x:<span class="hljs-built_in">number</span>,y:<span class="hljs-built_in">number</span></span>):<span class="hljs-title">number</span></span>&#123;</span><br><span class="line">  <span class="hljs-keyword">return</span> x+y;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>这个是可以通过编译的，但是在事实上，上面的代码只对等号右侧的匿名行数进行了类的定义，而等号左侧的<code>mySum</code>，是通过赋值操作对类型进行推断出来的。如果需要我们手动给<code>mySum</code>添加类型，代码应该只这样写的：</p>
+<figure class="highlight typescript hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-keyword">let</span> mySum:<span class="hljs-function">(<span class="hljs-params">x <span class="hljs-built_in">number</span>,y:<span class="hljs-built_in">number</span></span>) =&gt;</span><span class="hljs-built_in">number</span> = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">x:<span class="hljs-built_in">number</span>,y:<span class="hljs-built_in">number</span></span>):<span class="hljs-title">number</span></span>&#123;</span><br><span class="line">  <span class="hljs-keyword">return</span> x+y;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>在<code>TypeScript</code>的类型定义中，<code>=&gt;</code>用来表示函数的定义，左边是输入类型，需要用括号括起来，右边是输出类型，应用是十分广泛的。</p>
+<h4 id="接口中函数的定义"><a href="#接口中函数的定义" class="headerlink" title="接口中函数的定义"></a>接口中函数的定义</h4><p>我们也可以使用接口的当时来定义一个函数需要符合的形象：</p>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">interface SearchFunc&#123;</span><br><span class="line">  (source:string,subString:string):boolean</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">let mySearch : SearchFunc;</span><br><span class="line">mySearch  = function (source:string,subString:string)&#123;</span><br><span class="line">  return source.search(subString) !== -1;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="可选参数"><a href="#可选参数" class="headerlink" title="可选参数"></a>可选参数</h4><p>前面，输入多余的(或是少于要求的)的参数，是不被允许的，那么怎么定义可选的参数呢？与接口中的可选属性相似，也是使用<code>？</code>表示可选参数：</p>
+<figure class="highlight typescript hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">buildName</span>(<span class="hljs-params">firstName: <span class="hljs-built_in">string</span>, lastName?: <span class="hljs-built_in">string</span></span>) </span>&#123;</span><br><span class="line">  <span class="hljs-keyword">if</span> (lastName) &#123;</span><br><span class="line">    <span class="hljs-keyword">return</span> firstName + <span class="hljs-string">' '</span> + lastName;</span><br><span class="line">  &#125; <span class="hljs-keyword">else</span> &#123;</span><br><span class="line">    <span class="hljs-keyword">return</span> firstName;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="hljs-keyword">let</span> kimXue= buildName(<span class="hljs-string">'Xcat'</span>, <span class="hljs-string">'Xue'</span>);</span><br><span class="line"><span class="hljs-keyword">let</span> kim= buildName(<span class="hljs-string">'kim'</span>);</span><br></pre></td></tr></table></figure>
+
+<p>需要注意的是，可选参数必须接在必需参数后面。换句话说，可选参数后面不允许再出现必须参数了：</p>
+<figure class="highlight typescript hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">buildName</span>(<span class="hljs-params">firstName?: <span class="hljs-built_in">string</span>, lastName: <span class="hljs-built_in">string</span></span>) </span>&#123;</span><br><span class="line">  <span class="hljs-keyword">if</span> (firstName) &#123;</span><br><span class="line">    <span class="hljs-keyword">return</span> firstName + <span class="hljs-string">' '</span> + lastName;</span><br><span class="line">  &#125; <span class="hljs-keyword">else</span> &#123;</span><br><span class="line">    <span class="hljs-keyword">return</span> lastName;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="hljs-keyword">let</span> kimXue= buildName(<span class="hljs-string">'Xcat'</span>, <span class="hljs-string">'Xue'</span>);</span><br><span class="line"><span class="hljs-keyword">let</span> kim= buildName(<span class="hljs-string">'kim'</span>);</span><br><span class="line"> </span><br><span class="line"><span class="hljs-comment">// index.ts(1,40): error TS1016: A required parameter cannot follow an optional parameter.</span></span><br></pre></td></tr></table></figure>
+
+<p>上面的代码会报错，因为在first那么这个属性的后面还有必须的属性，因此报错。</p>
+<h4 id="参数默认值"><a href="#参数默认值" class="headerlink" title="参数默认值"></a>参数默认值</h4><p>在<code>ES6</code>中，我们允许给函数的参数添加默认值，<code>TypeScript</code>会将添加了默认值的参数识别为可选参数：</p>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">function buildName(firstName: string, lastName: string = &apos;Xue&apos;) &#123;</span><br><span class="line">  return firstName + &apos; &apos; + lastName;</span><br><span class="line">&#125;</span><br><span class="line">let kimXue= buildName(&apos;Xcat&apos;, &apos;Xue&apos;);</span><br><span class="line">let kim= buildName(&apos;kim&apos;);</span><br></pre></td></tr></table></figure>
+
+<p>此时就不受「可选参数必须接在必需参数后面」的限制了：</p>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">function buildName(firstName: string = &apos;kim&apos;, lastName: string) &#123;</span><br><span class="line">  return firstName + &apos; &apos; + lastName;</span><br><span class="line">&#125;</span><br><span class="line">let kimXue= buildName(&apos;Xcat&apos;, &apos;Xue&apos;);</span><br><span class="line">let kim= buildName(&apos;kim&apos;);</span><br></pre></td></tr></table></figure>
+
+<h4 id="剩余参数"><a href="#剩余参数" class="headerlink" title="剩余参数"></a>剩余参数</h4><p><code>ES6</code>中，可以使用<code>...rest</code>的方式获取函数中的剩余参数(<code>rest</code>参数)：</p>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">function push(array,...items)&#123;</span><br><span class="line">  items.forEach(function (item)&#123;</span><br><span class="line">    array.push(item);</span><br><span class="line">  &#125;)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">let a = [];</span><br><span class="line">push(a,1,2,3);</span><br></pre></td></tr></table></figure>
+
+<p>事实上，<code>items</code>是一个数组，所以我们可以用数组的类型去定义它：</p>
+<figure class="highlight typescript hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">push</span>(<span class="hljs-params">array:<span class="hljs-built_in">any</span>[],...items:<span class="hljs-built_in">any</span>[]</span>)</span>&#123;</span><br><span class="line">  items.forEach(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">item</span>)</span>&#123;</span><br><span class="line">    array.push(item);</span><br><span class="line">  &#125;)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="hljs-keyword">let</span> a = [];</span><br><span class="line">push(a,<span class="hljs-number">1</span>,<span class="hljs-number">2</span>,<span class="hljs-number">3</span>);</span><br></pre></td></tr></table></figure>
+
+<p>和上面的代码一样，<code>rest</code>参数只能是最后一个参数。</p>
+<h4 id="重载"><a href="#重载" class="headerlink" title="重载"></a>重载</h4><p>重载允许一个函数接受不同数量或是类型的参数，并作出不同的处理。<br>比如，我们需要实现一个函数<code>reverse</code>，输入数字<code>123</code>的时候，输出的就是数字<code>321</code>，输入字符串<code>‘hello’</code>的时候，输出翻转的字符串<code>‘olleh’</code>，利用联合类型，我们可以这么实现：</p>
+<figure class="highlight typescript hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">reverse</span>(<span class="hljs-params">x: <span class="hljs-built_in">number</span> | <span class="hljs-built_in">string</span></span>): <span class="hljs-title">number</span> | <span class="hljs-title">string</span> </span>&#123;</span><br><span class="line">  <span class="hljs-keyword">if</span> (<span class="hljs-keyword">typeof</span> x === <span class="hljs-string">'number'</span>) &#123;</span><br><span class="line">    <span class="hljs-keyword">return</span> <span class="hljs-built_in">Number</span>(x.toString().split(<span class="hljs-string">''</span>).reverse().join(<span class="hljs-string">''</span>));</span><br><span class="line">  &#125; <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (<span class="hljs-keyword">typeof</span> x === <span class="hljs-string">'string'</span>) &#123;</span><br><span class="line">    <span class="hljs-keyword">return</span> x.split(<span class="hljs-string">''</span>).reverse().join(<span class="hljs-string">''</span>);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>然而这样写的话，还是有一个缺点，就是不能够精确地表达，输入为数字的时候，输出的也应该是数字，输入为字符串的时候，输出也应该为字符串。这时，我们可以用重载来实现多个这样的函数：</p>
+<figure class="highlight typescript hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">reverse</span>(<span class="hljs-params">x: <span class="hljs-built_in">number</span></span>): <span class="hljs-title">number</span></span>;</span><br><span class="line"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">reverse</span>(<span class="hljs-params">x: <span class="hljs-built_in">string</span></span>): <span class="hljs-title">string</span></span>;</span><br><span class="line"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">reverse</span>(<span class="hljs-params">x: <span class="hljs-built_in">number</span> | <span class="hljs-built_in">string</span></span>): <span class="hljs-title">number</span> | <span class="hljs-title">string</span> </span>&#123;</span><br><span class="line">  <span class="hljs-keyword">if</span> (<span class="hljs-keyword">typeof</span> x === <span class="hljs-string">'number'</span>) &#123;</span><br><span class="line">    <span class="hljs-keyword">return</span> <span class="hljs-built_in">Number</span>(x.toString().split(<span class="hljs-string">''</span>).reverse().join(<span class="hljs-string">''</span>));</span><br><span class="line">  &#125; <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (<span class="hljs-keyword">typeof</span> x === <span class="hljs-string">'string'</span>) &#123;</span><br><span class="line">    <span class="hljs-keyword">return</span> x.split(<span class="hljs-string">''</span>).reverse().join(<span class="hljs-string">''</span>);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="类型断言"><a href="#类型断言" class="headerlink" title="类型断言"></a>类型断言</h2><p>类型断言可以用来绕过编译器的类型判断，手动指定一个值的类型。</p>
+<h4 id="语法"><a href="#语法" class="headerlink" title="语法"></a>语法</h4><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&lt;类型&gt;值</span><br><span class="line">// 或</span><br><span class="line">值 as 类型</span><br><span class="line">// 在TSX语法 (React的JSX语法的TS版）中必须用后一种</span><br></pre></td></tr></table></figure>
+
+<p><strong>例子：将一个联合类型的变量指定为一个更加具体的类型</strong></p>
+<p>当 <code>TypeScript</code> 不确定一个联合类型的变量到底是哪个类型的时候，我们只能访问此联合类型的所有类型里共有的属性或方法：</p>
+<figure class="highlight typescript hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">getLength</span>(<span class="hljs-params">something: <span class="hljs-built_in">string</span> | <span class="hljs-built_in">number</span></span>): <span class="hljs-title">number</span> </span>&#123;</span><br><span class="line">  <span class="hljs-keyword">return</span> something.length;</span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line"><span class="hljs-comment">//index.ts(2,20): error TS2339: Property 'length' does not exist on type 'string | number'.</span></span><br><span class="line"><span class="hljs-comment">//Property 'length' does not exist on type 'number'.</span></span><br></pre></td></tr></table></figure>
+
+<p>这样的时候我们就需要使用类型断言，现将<code>something</code>断言成<code>string</code>：</p>
+<figure class="highlight typescript hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">getLength</span>(<span class="hljs-params">something: <span class="hljs-built_in">string</span> | <span class="hljs-built_in">number</span></span>): <span class="hljs-title">number</span> </span>&#123;</span><br><span class="line">  <span class="hljs-keyword">if</span> ((&lt;<span class="hljs-built_in">string</span>&gt;something).length) &#123;</span><br><span class="line">    <span class="hljs-keyword">return</span> (&lt;<span class="hljs-built_in">string</span>&gt;something).length;</span><br><span class="line">  &#125; <span class="hljs-keyword">else</span> &#123;</span><br><span class="line">    <span class="hljs-keyword">return</span> something.toString().length;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>类型断言不是类型转换，断言成一个联合类型中不存在的类型是不允许的：</p>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">function toBoolean(something: string | number): boolean &#123;</span><br><span class="line">  return &lt;boolean&gt;something;</span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line">// index.ts(2,10): error TS2352: Type &apos;string | number&apos; cannot be converted to type &apos;boolean&apos;.</span><br><span class="line">//   Type &apos;number&apos; is not comparable to type &apos;boolean&apos;.</span><br></pre></td></tr></table></figure>
+
+<h2 id="声明文件"><a href="#声明文件" class="headerlink" title="声明文件"></a>声明文件</h2><p>当我们使用第三方库时，我们需要引用它的声明文件：</p>
+<h4 id="声明语法"><a href="#声明语法" class="headerlink" title="声明语法"></a>声明语法</h4><p>当我们使用第三方库，比如<code>jQuery</code>，我们通常这样获取一个<code>id</code>是<code>foo</code>元素：</p>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$(&apos;#foo&apos;);</span><br><span class="line">// or</span><br><span class="line">jQuery(&apos;#foo&apos;);</span><br></pre></td></tr></table></figure>
+
+<p>但是在 <code>TypeScript</code> 中，我们并不知道<code>$</code> 或<code>jQuery</code>是什么东西。这时，我们需要使用 <code>declare</code>关键字来定义它的类型，帮助 <code>TypeScript</code> 判断我们传入的参数类型对不对。</p>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">declear var jQuery:(string) =&gt;any;</span><br><span class="line">jQuery(&apos;#foo&apos;);</span><br></pre></td></tr></table></figure>
+
+<p><code>declare</code> 定义的类型只会用于编译时的检查，编译结果中会被删除。</p>
+<h4 id="声明文件-1"><a href="#声明文件-1" class="headerlink" title="声明文件"></a>声明文件</h4><p>通常我们会把类型声明放在一个单独的文件中，这就是声明文件：</p>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">// jQuery.d.ts</span><br><span class="line"> </span><br><span class="line">declare var jQuery: (string) =&gt; any;</span><br></pre></td></tr></table></figure>
+
+<p>我们约定声明文件以<code>.d.ts</code>为后缀。<br>然后在使用到的文件的开头，用<code>「三斜线指令」</code>表示引用了声明文件：</p>
+<figure class="highlight typescript hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-comment">/// &lt;reference path="./jQuery.d.ts" /&gt;</span></span><br><span class="line">jQuery(<span class="hljs-string">'#foo'</span>);</span><br></pre></td></tr></table></figure>
+        </div>
+        
+        <div class="level is-size-7 is-uppercase">
+            <div class="level-start">
+                <div class="level-item">
+                    <span class="is-size-6 has-text-grey has-mr-7">#</span>
+                    <a class="has-link-grey -link" href="/tags/TypeScript/">TypeScript</a>, <a class="has-link-grey -link" href="/tags/前端/">前端</a>, <a class="has-link-grey -link" href="/tags/语言/">语言</a>
+                </div>
+            </div>
+        </div>
+        
+        
+        
+    </div>
+</div>
+
+
+
+<div class="card">
+    <div class="card-content">
+        <h3 class="menu-label has-text-centered">喜欢这篇文章？打赏一下作者吧</h3>
+        <div class="buttons is-centered">
+            
+        </div>
+    </div>
+</div>
+
+
+
+<div class="card card-transparent">
+    <div class="level post-navigation is-flex-wrap is-mobile">
+        
+        <div class="level-start">
+            <a class="level level-item has-link-grey  article-nav-prev" href="/2020/11/01/React组件中的constructor概述/">
+                <i class="level-item fas fa-chevron-left"></i>
+                <span class="level-item">React组件中的constructor概述</span>
+            </a>
+        </div>
+        
+        
+        <div class="level-end">
+            <a class="level level-item has-link-grey  article-nav-next" href="/2020/11/01/antDesign-react实现表格/">
+                <span class="level-item">antDesign+react实现表格</span>
+                <i class="level-item fas fa-chevron-right"></i>
+            </a>
+        </div>
+        
+    </div>
+</div>
+
+
+</div>
+                
+
+
+
+
+<div class="column is-4-tablet is-4-desktop is-4-widescreen  has-order-1 column-left ">
+    
+        
+<div class="card widget">
+    <div class="card-content">
+        <nav class="level">
+            <div class="level-item has-text-centered">
+                <div>
+                    
+                        <img class="image is-128x128 has-mb-6" src="/images/icon.jpg" alt="Kim jin">
+                    
+                    
+                    <p class="is-size-4 is-block">
+                        Kim jin
+                    </p>
+                    
+                    
+                    <p class="is-size-6 is-block">
+                        前端工程师
+                    </p>
+                    
+                    
+                    <p class="is-size-6 is-flex is-flex-center has-text-grey">
+                        <i class="fas fa-map-marker-alt has-mr-7"></i>
+                        <span>沈阳</span>
+                    </p>
+                    
+                </div>
+            </div>
+        </nav>
+        <nav class="level is-mobile">
+            <div class="level-item has-text-centered is-marginless">
+                <div>
+                    <p class="heading">
+                        文章
+                    </p>
+                    <p class="title has-text-weight-normal">
+                        57
+                    </p>
+                </div>
+            </div>
+            <div class="level-item has-text-centered is-marginless">
+                <div>
+                    <p class="heading">
+                        分类
+                    </p>
+                    <p class="title has-text-weight-normal">
+                        17
+                    </p>
+                </div>
+            </div>
+            <div class="level-item has-text-centered is-marginless">
+                <div>
+                    <p class="heading">
+                        标签
+                    </p>
+                    <p class="title has-text-weight-normal">
+                        39
+                    </p>
+                </div>
+            </div>
+        </nav>
+        <div class="level">
+            <a class="level-item button is-link is-rounded" href="https://github.com/KimQueen" target="_blank">
+                关注我</a>
+        </div>
+        
+        
+        <div class="level is-mobile">
+            
+            <a class="level-item button is-white is-marginless" target="_blank" title="Github" href="https://github.com/KimQueen">
+                
+                <i class="fab fa-github"></i>
+                
+            </a>
+            
+            <a class="level-item button is-white is-marginless" target="_blank" title="简书" href="https://www.jianshu.com/u/4ada765444de">
+                
+                <i class="fa fa-book"></i>
+                
+            </a>
+            
+            <a class="level-item button is-white is-marginless" target="_blank" title="邮件" href="mailto:2731601926@qq.com">
+                
+                <i class="fa fa-envelope"></i>
+                
+            </a>
+            
+            <a class="level-item button is-white is-marginless" target="_blank" title="RSS" href="/">
+                
+                <i class="fas fa-rss"></i>
+                
+            </a>
+            
+        </div>
+        
+    </div>
+</div>
+    
+        
+<div class="card widget" id="toc">
+    <div class="card-content">
+        <div class="menu">
+            <h3 class="menu-label">
+                目录
+            </h3>
+            <ul class="menu-list"><li>
+        <a class="is-flex" href="#关于TypeScript">
+        <span class="has-mr-6">1</span>
+        <span>关于TypeScript</span>
+        </a></li><li>
+        <a class="is-flex" href="#TypeScript的优势">
+        <span class="has-mr-6">2</span>
+        <span>TypeScript的优势</span>
+        </a></li><li>
+        <a class="is-flex" href="#TypeScript的劣势">
+        <span class="has-mr-6">3</span>
+        <span>TypeScript的劣势</span>
+        </a></li><li>
+        <a class="is-flex" href="#原始数据类型">
+        <span class="has-mr-6">4</span>
+        <span>原始数据类型</span>
+        </a><ul class="menu-list"><li>
+        <a class="is-flex" href="#布尔值">
+        <span class="has-mr-6">4.1</span>
+        <span>布尔值</span>
+        </a></li><li>
+        <a class="is-flex" href="#数值">
+        <span class="has-mr-6">4.2</span>
+        <span>数值</span>
+        </a></li><li>
+        <a class="is-flex" href="#字符串">
+        <span class="has-mr-6">4.3</span>
+        <span>字符串</span>
+        </a></li><li>
+        <a class="is-flex" href="#空值">
+        <span class="has-mr-6">4.4</span>
+        <span>空值</span>
+        </a></li><li>
+        <a class="is-flex" href="#Null和undefined">
+        <span class="has-mr-6">4.5</span>
+        <span>Null和undefined</span>
+        </a></li></ul></li><li>
+        <a class="is-flex" href="#任意值">
+        <span class="has-mr-6">5</span>
+        <span>任意值</span>
+        </a><ul class="menu-list"><li>
+        <a class="is-flex" href="#什么是任意值类型">
+        <span class="has-mr-6">5.1</span>
+        <span>什么是任意值类型</span>
+        </a></li><li>
+        <a class="is-flex" href="#任意值的属性和方法">
+        <span class="has-mr-6">5.2</span>
+        <span>任意值的属性和方法</span>
+        </a></li><li>
+        <a class="is-flex" href="#未声明类型的变量">
+        <span class="has-mr-6">5.3</span>
+        <span>未声明类型的变量</span>
+        </a></li></ul></li><li>
+        <a class="is-flex" href="#类型推论">
+        <span class="has-mr-6">6</span>
+        <span>类型推论</span>
+        </a></li><li>
+        <a class="is-flex" href="#联合类型">
+        <span class="has-mr-6">7</span>
+        <span>联合类型</span>
+        </a><ul class="menu-list"><li>
+        <a class="is-flex" href="#访问联合类型的属性或方法">
+        <span class="has-mr-6">7.1</span>
+        <span>访问联合类型的属性或方法</span>
+        </a></li></ul></li><li>
+        <a class="is-flex" href="#对象的类型-–-接口">
+        <span class="has-mr-6">8</span>
+        <span>对象的类型 – 接口</span>
+        </a><ul class="menu-list"><li>
+        <a class="is-flex" href="#什么是接口">
+        <span class="has-mr-6">8.1</span>
+        <span>什么是接口</span>
+        </a></li><li>
+        <a class="is-flex" href="#可选属性">
+        <span class="has-mr-6">8.2</span>
+        <span>可选属性</span>
+        </a></li><li>
+        <a class="is-flex" href="#任意属性">
+        <span class="has-mr-6">8.3</span>
+        <span>任意属性</span>
+        </a></li><li>
+        <a class="is-flex" href="#只读属性">
+        <span class="has-mr-6">8.4</span>
+        <span>只读属性</span>
+        </a></li></ul></li><li>
+        <a class="is-flex" href="#数组的类型">
+        <span class="has-mr-6">9</span>
+        <span>数组的类型</span>
+        </a><ul class="menu-list"><li>
+        <a class="is-flex" href="#类型-方括号-表示法">
+        <span class="has-mr-6">9.1</span>
+        <span>[类型+方括号]表示法</span>
+        </a></li><li>
+        <a class="is-flex" href="#数组泛型">
+        <span class="has-mr-6">9.2</span>
+        <span>数组泛型</span>
+        </a></li><li>
+        <a class="is-flex" href="#用接口表示数组">
+        <span class="has-mr-6">9.3</span>
+        <span>用接口表示数组</span>
+        </a></li><li>
+        <a class="is-flex" href="#any-在数组中的应用">
+        <span class="has-mr-6">9.4</span>
+        <span>any 在数组中的应用</span>
+        </a></li><li>
+        <a class="is-flex" href="#类数组">
+        <span class="has-mr-6">9.5</span>
+        <span>类数组</span>
+        </a></li></ul></li><li>
+        <a class="is-flex" href="#函数的类型">
+        <span class="has-mr-6">10</span>
+        <span>函数的类型</span>
+        </a><ul class="menu-list"><li>
+        <a class="is-flex" href="#函数表达式">
+        <span class="has-mr-6">10.1</span>
+        <span>函数表达式</span>
+        </a></li><li>
+        <a class="is-flex" href="#接口中函数的定义">
+        <span class="has-mr-6">10.2</span>
+        <span>接口中函数的定义</span>
+        </a></li><li>
+        <a class="is-flex" href="#可选参数">
+        <span class="has-mr-6">10.3</span>
+        <span>可选参数</span>
+        </a></li><li>
+        <a class="is-flex" href="#参数默认值">
+        <span class="has-mr-6">10.4</span>
+        <span>参数默认值</span>
+        </a></li><li>
+        <a class="is-flex" href="#剩余参数">
+        <span class="has-mr-6">10.5</span>
+        <span>剩余参数</span>
+        </a></li><li>
+        <a class="is-flex" href="#重载">
+        <span class="has-mr-6">10.6</span>
+        <span>重载</span>
+        </a></li></ul></li><li>
+        <a class="is-flex" href="#类型断言">
+        <span class="has-mr-6">11</span>
+        <span>类型断言</span>
+        </a><ul class="menu-list"><li>
+        <a class="is-flex" href="#语法">
+        <span class="has-mr-6">11.1</span>
+        <span>语法</span>
+        </a></li></ul></li><li>
+        <a class="is-flex" href="#声明文件">
+        <span class="has-mr-6">12</span>
+        <span>声明文件</span>
+        </a><ul class="menu-list"><li>
+        <a class="is-flex" href="#声明语法">
+        <span class="has-mr-6">12.1</span>
+        <span>声明语法</span>
+        </a></li><li>
+        <a class="is-flex" href="#声明文件-1">
+        <span class="has-mr-6">12.2</span>
+        <span>声明文件</span>
+        </a></li></ul></li></ul>
+        </div>
+    </div>
+</div>
+
+    
+        
+
+<div class="card widget">
+    <div class="card-content">
+        <div class="menu">
+        <h3 class="menu-label">
+            友情链接
+        </h3>
+        <ul class="menu-list">
+        
+            <li>
+                <a class="level is-mobile" href="https://yizhengfeng-jj.github.io/" target="_blank">
+                    <span class="level-left">
+                        <span class="level-item">Json</span>
+                    </span>
+                    <span class="level-right">
+                        <span class="level-item tag">yizhengfeng-jj.github.io</span>
+                    </span>
+                </a>
+            </li>
+        
+            <li>
+                <a class="level is-mobile" href="https://shuangmianxiaoq.github.io" target="_blank">
+                    <span class="level-left">
+                        <span class="level-item">双面小Q</span>
+                    </span>
+                    <span class="level-right">
+                        <span class="level-item tag">shuangmianxiaoq.github.io</span>
+                    </span>
+                </a>
+            </li>
+        
+        </ul>
+        </div>
+    </div>
+</div>
+
+
+    
+        
+<div class="card widget">
+    <div class="card-content">
+        <div class="menu">
+            <h3 class="menu-label">
+                分类
+            </h3>
+            <ul class="menu-list">
+            <li>
+        <a class="level is-marginless" href="/categories/CSS/">
+            <span class="level-start">
+                <span class="level-item">CSS</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">1</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/less/">
+            <span class="level-start">
+                <span class="level-item">less</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">1</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/react/">
+            <span class="level-start">
+                <span class="level-item">react</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">10</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/redux/">
+            <span class="level-start">
+                <span class="level-item">redux</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">1</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/webPack/">
+            <span class="level-start">
+                <span class="level-item">webPack</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">5</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/公共方法/">
+            <span class="level-start">
+                <span class="level-item">公共方法</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">1</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/前端功能实现代码/">
+            <span class="level-start">
+                <span class="level-item">前端功能实现代码</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">7</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/前端异步/">
+            <span class="level-start">
+                <span class="level-item">前端异步</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">3</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/前端编程语言/">
+            <span class="level-start">
+                <span class="level-item">前端编程语言</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">1</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/安全/">
+            <span class="level-start">
+                <span class="level-item">安全</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">1</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/小文章/">
+            <span class="level-start">
+                <span class="level-item">小文章</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">1</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/工具/">
+            <span class="level-start">
+                <span class="level-item">工具</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">14</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/性能/">
+            <span class="level-start">
+                <span class="level-item">性能</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">1</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/数据结构/">
+            <span class="level-start">
+                <span class="level-item">数据结构</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">2</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/算法/">
+            <span class="level-start">
+                <span class="level-item">算法</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">1</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/重学前端/">
+            <span class="level-start">
+                <span class="level-item">重学前端</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">5</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/面试/">
+            <span class="level-start">
+                <span class="level-item">面试</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">1</span>
+            </span>
+        </a></li>
+            </ul>
+        </div>
+    </div>
+</div>
+    
+        
+<div class="card widget">
+    <div class="card-content">
+        <h3 class="menu-label">
+            标签云
+        </h3>
+        <a href="/tags/CSS/" style="font-size: 10px;">CSS</a> <a href="/tags/HTTP/" style="font-size: 10px;">HTTP</a> <a href="/tags/JavaScript/" style="font-size: 18.89px;">JavaScript</a> <a href="/tags/JavaScript1/" style="font-size: 10px;">JavaScript1</a> <a href="/tags/TypeScript/" style="font-size: 10px;">TypeScript</a> <a href="/tags/antDesign/" style="font-size: 13.33px;">antDesign</a> <a href="/tags/antdsign/" style="font-size: 12.22px;">antdsign</a> <a href="/tags/axios/" style="font-size: 10px;">axios</a> <a href="/tags/echarts/" style="font-size: 10px;">echarts</a> <a href="/tags/git/" style="font-size: 14.44px;">git</a> <a href="/tags/less/" style="font-size: 10px;">less</a> <a href="/tags/map坐标/" style="font-size: 10px;">map坐标</a> <a href="/tags/moment/" style="font-size: 10px;">moment</a> <a href="/tags/react/" style="font-size: 17.78px;">react</a> <a href="/tags/redux/" style="font-size: 10px;">redux</a> <a href="/tags/state/" style="font-size: 10px;">state</a> <a href="/tags/webPack/" style="font-size: 14.44px;">webPack</a> <a href="/tags/webpack/" style="font-size: 15.56px;">webpack</a> <a href="/tags/前端/" style="font-size: 20px;">前端</a> <a href="/tags/基础/" style="font-size: 14.44px;">基础</a> <a href="/tags/基础认知/" style="font-size: 10px;">基础认知</a> <a href="/tags/安全/" style="font-size: 10px;">安全</a> <a href="/tags/实践/" style="font-size: 16.67px;">实践</a> <a href="/tags/小文章/" style="font-size: 10px;">小文章</a> <a href="/tags/工具/" style="font-size: 14.44px;">工具</a> <a href="/tags/异步/" style="font-size: 13.33px;">异步</a> <a href="/tags/数据结构/" style="font-size: 11.11px;">数据结构</a> <a href="/tags/数组/" style="font-size: 10px;">数组</a> <a href="/tags/栈/" style="font-size: 10px;">栈</a> <a href="/tags/样式/" style="font-size: 10px;">样式</a> <a href="/tags/渲染/" style="font-size: 10px;">渲染</a> <a href="/tags/算法/" style="font-size: 10px;">算法</a> <a href="/tags/组件/" style="font-size: 10px;">组件</a> <a href="/tags/编程规范/" style="font-size: 10px;">编程规范</a> <a href="/tags/表格/" style="font-size: 13.33px;">表格</a> <a href="/tags/规范/" style="font-size: 10px;">规范</a> <a href="/tags/语言/" style="font-size: 11.11px;">语言</a> <a href="/tags/面试/" style="font-size: 10px;">面试</a> <a href="/tags/面试ES6基础/" style="font-size: 10px;">面试ES6基础</a>
+    </div>
+</div>
+
+    
+        
+<div class="card widget">
+    <div class="card-content">
+        <h3 class="menu-label">
+            最新文章
+        </h3>
+        
+        <article class="media">
+            
+            <a href="/2023/10/28/查找算法/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/tools.jpg" alt="查找算法">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2023-10-28T02:00:00.000Z">2023-10-28</time></div>
+                    <a href="/2023/10/28/查找算法/" class="has-link-black-ter is-size-6">查找算法</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/算法/">算法</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2020/11/01/Async-Await简介与用法/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/key.jpg" alt="Async/Await简介与用法">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2020-11-01T02:00:00.000Z">2020-11-01</time></div>
+                    <a href="/2020/11/01/Async-Await简介与用法/" class="has-link-black-ter is-size-6">Async/Await简介与用法</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/前端异步/">前端异步</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2020/11/01/CSRF攻击方式/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/safe.jpg" alt="CSRF攻击方式">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2020-11-01T02:00:00.000Z">2020-11-01</time></div>
+                    <a href="/2020/11/01/CSRF攻击方式/" class="has-link-black-ter is-size-6">CSRF攻击方式</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/安全/">安全</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2020/11/01/JavaScript的原生函数/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/tree.jpg" alt="原生函数">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2020-11-01T02:00:00.000Z">2020-11-01</time></div>
+                    <a href="/2020/11/01/JavaScript的原生函数/" class="has-link-black-ter is-size-6">原生函数</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/重学前端/">重学前端</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2020/11/01/JavaScript的数组/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/handle.jpg" alt="JavaScript的数组">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2020-11-01T02:00:00.000Z">2020-11-01</time></div>
+                    <a href="/2020/11/01/JavaScript的数组/" class="has-link-black-ter is-size-6">JavaScript的数组</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/数据结构/">数据结构</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+    </div>
+</div>
+
+    
+        <div class="card widget">
+    <div class="card-content">
+        <div class="menu">
+        <h3 class="menu-label">
+            归档
+        </h3>
+        <ul class="menu-list">
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2023/10/">
+                <span class="level-start">
+                    <span class="level-item">十月 2023</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">1</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2020/11/">
+                <span class="level-start">
+                    <span class="level-item">十一月 2020</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">55</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2019/07/">
+                <span class="level-start">
+                    <span class="level-item">七月 2019</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">1</span>
+                </span>
+            </a>
+        </li>
+        
+        </ul>
+        </div>
+    </div>
+</div>
+    
+        <div class="card widget">
+    <div class="card-content">
+        <div class="menu">
+            <h3 class="menu-label">
+                标签
+            </h3>
+            <div class="field is-grouped is-grouped-multiline">
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/CSS/">
+                        <span class="tag">CSS</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/HTTP/">
+                        <span class="tag">HTTP</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/JavaScript/">
+                        <span class="tag">JavaScript</span>
+                        <span class="tag is-grey">18</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/JavaScript1/">
+                        <span class="tag">JavaScript1</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/TypeScript/">
+                        <span class="tag">TypeScript</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/antDesign/">
+                        <span class="tag">antDesign</span>
+                        <span class="tag is-grey">4</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/antdsign/">
+                        <span class="tag">antdsign</span>
+                        <span class="tag is-grey">3</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/axios/">
+                        <span class="tag">axios</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/echarts/">
+                        <span class="tag">echarts</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/git/">
+                        <span class="tag">git</span>
+                        <span class="tag is-grey">5</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/less/">
+                        <span class="tag">less</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/map坐标/">
+                        <span class="tag">map坐标</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/moment/">
+                        <span class="tag">moment</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/react/">
+                        <span class="tag">react</span>
+                        <span class="tag is-grey">13</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/redux/">
+                        <span class="tag">redux</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/state/">
+                        <span class="tag">state</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/webPack/">
+                        <span class="tag">webPack</span>
+                        <span class="tag is-grey">5</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/webpack/">
+                        <span class="tag">webpack</span>
+                        <span class="tag is-grey">7</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/前端/">
+                        <span class="tag">前端</span>
+                        <span class="tag is-grey">41</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/基础/">
+                        <span class="tag">基础</span>
+                        <span class="tag is-grey">5</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/基础认知/">
+                        <span class="tag">基础认知</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/安全/">
+                        <span class="tag">安全</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/实践/">
+                        <span class="tag">实践</span>
+                        <span class="tag is-grey">8</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/小文章/">
+                        <span class="tag">小文章</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/工具/">
+                        <span class="tag">工具</span>
+                        <span class="tag is-grey">5</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/异步/">
+                        <span class="tag">异步</span>
+                        <span class="tag is-grey">4</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/数据结构/">
+                        <span class="tag">数据结构</span>
+                        <span class="tag is-grey">2</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/数组/">
+                        <span class="tag">数组</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/栈/">
+                        <span class="tag">栈</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/样式/">
+                        <span class="tag">样式</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/渲染/">
+                        <span class="tag">渲染</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/算法/">
+                        <span class="tag">算法</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/组件/">
+                        <span class="tag">组件</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/编程规范/">
+                        <span class="tag">编程规范</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/表格/">
+                        <span class="tag">表格</span>
+                        <span class="tag is-grey">4</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/规范/">
+                        <span class="tag">规范</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/语言/">
+                        <span class="tag">语言</span>
+                        <span class="tag is-grey">2</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/面试/">
+                        <span class="tag">面试</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/面试ES6基础/">
+                        <span class="tag">面试ES6基础</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+            </div>
+        </div>
+    </div>
+</div>
+    
+    
+        <div class="column-right-shadow is-hidden-widescreen ">
+        
+        </div>
+    
+</div>
+
+                
+            </div>
+        </div>
+    </section>
+    <footer class="footer">
+    <div class="container">
+        <div class="level">
+            <div class="level-start has-text-centered-mobile">
+                <a class="footer-logo is-block has-mb-6" href="/">
+                
+                    <img src="/images/logo.png" alt="Async/Await简介与用法" height="28">
+                
+                </a>
+                <p class="is-size-7">
+                &copy; 2023 Kim Jin&nbsp;
+                Powered by <a href="https://hexo.io/" target="_blank">Hexo</a> & <a href="https://github.com/ppoffice/hexo-theme-icarus" target="_blank">Icarus</a>
+                
+                </p>
+            </div>
+            <div class="level-end">
+            
+                <div class="field has-addons is-flex-center-mobile has-mt-5-mobile is-flex-wrap is-flex-middle">
+                
+                
+                <p class="control">
+                    <a class="button is-white is-large" target="_blank" title="Creative Commons" href="https://creativecommons.org/">
+                        
+                        <i class="fab fa-creative-commons"></i>
+                        
+                    </a>
+                </p>
+                
+                <p class="control">
+                    <a class="button is-white is-large" target="_blank" title="Attribution 4.0 International" href="https://creativecommons.org/licenses/by/4.0/">
+                        
+                        <i class="fab fa-creative-commons-by"></i>
+                        
+                    </a>
+                </p>
+                
+                <p class="control">
+                    <a class="button is-white is-large" target="_blank" title="Download on GitHub" href="https://github.com/ppoffice/hexo-theme-icarus">
+                        
+                        <i class="fab fa-github"></i>
+                        
+                    </a>
+                </p>
+                
+                </div>
+            
+            </div>
+        </div>
+    </div>
+</footer>
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/moment@2.22.2/min/moment-with-locales.min.js"></script>
+<script>moment.locale("zh-CN");</script>
+
+
+    
+    
+    
+    <script src="/js/animation.js"></script>
+    
+
+    
+    
+    
+    <script src="https://cdn.jsdelivr.net/npm/lightgallery@1.6.8/dist/js/lightgallery.min.js" defer></script>
+    <script src="https://cdn.jsdelivr.net/npm/justifiedGallery@3.7.0/dist/js/jquery.justifiedGallery.min.js" defer></script>
+    <script src="/js/gallery.js" defer></script>
+    
+
+    
+    
+
+<div id="outdated">
+    <h6>Your browser is out-of-date!</h6>
+    <p>Update your browser to view this website correctly. <a id="btnUpdateBrowser" href="http://outdatedbrowser.com/">Update
+            my browser now </a></p>
+    <p class="last"><a href="#" id="btnCloseUpdateBrowser" title="Close">&times;</a></p>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/outdatedbrowser@1.1.5/outdatedbrowser/outdatedbrowser.min.js" defer></script>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        outdatedBrowser({
+            bgColor: '#f25648',
+            color: '#ffffff',
+            lowerThan: 'flex'
+        });
+    });
+</script>
+
+
+    
+    
+<script src="https://cdn.jsdelivr.net/npm/mathjax@2.7.5/unpacked/MathJax.js?config=TeX-MML-AM_CHTML" defer></script>
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    MathJax.Hub.Config({
+        'HTML-CSS': {
+            matchFontHeight: false
+        },
+        SVG: {
+            matchFontHeight: false
+        },
+        CommonHTML: {
+            matchFontHeight: false
+        },
+        tex2jax: {
+            inlineMath: [
+                ['$','$'],
+                ['\\(','\\)']
+            ]
+        }
+    });
+});
+</script>
+
+    
+    
+
+<a id="back-to-top" title="回到顶端" href="javascript:;">
+    <i class="fas fa-chevron-up"></i>
+</a>
+<script src="/js/back-to-top.js" defer></script>
+
+
+    
+    
+
+    
+    
+    
+    
+
+    
+    
+    
+    
+    
+    <script src="https://cdn.jsdelivr.net/npm/clipboard@2.0.4/dist/clipboard.min.js" defer></script>
+    <script src="/js/clipboard.js" defer></script>
+    
+
+    
+    
+    
+
+
+<script src="/js/main.js" defer></script>
+
+    
+    <div class="searchbox ins-search">
+    <div class="searchbox-container ins-search-container">
+        <div class="searchbox-input-wrapper">
+            <input type="text" class="searchbox-input ins-search-input" placeholder="想要查找什么...">
+            <span class="searchbox-close ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="searchbox-result-wrapper ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+    (function (window) {
+        var INSIGHT_CONFIG = {
+            TRANSLATION: {
+                POSTS: '文章',
+                PAGES: '页面',
+                CATEGORIES: '分类',
+                TAGS: '标签',
+                UNTITLED: '(无标题)',
+            },
+            CONTENT_URL: '/content.json',
+        };
+        window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+    })(window);
+</script>
+<script src="/js/insight.js" defer></script>
+<link rel="stylesheet" href="/css/search.css">
+<link rel="stylesheet" href="/css/insight.css">
+    
+</body>
+</html>
