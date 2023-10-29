@@ -165,7 +165,7 @@
                 <span class="level-item has-text-grey">
                     
                     
-                    1 分钟 读完 (大约 144 个字)
+                    5 分钟 读完 (大约 783 个字)
                 </span>
                 
                 
@@ -180,8 +180,61 @@
         <div class="content">
             <p>我们现在要将一个前端项目部署到阿里云的服务器上面，我们会从申请一个服务器然后部署这个逻辑进行实践</p>
 <a id="more"></a>
-<h2 id="服务器申请"><a href="#服务器申请" class="headerlink" title="服务器申请"></a>服务器申请</h2><p>我作为一个新用户，可以申请3个月免费的试用服务器，我们先通过这个途径进行举例<br><img src="https://kimqueen.github.io/images/project/apply.png"><br>申请后我们会进入到如下的页面<br><img src="https://kimqueen.github.io/images/project/connect.png"><br>我们进行远程连接，然后可以看到如下的页面<br><img src="https://kimqueen.github.io/images/project/cmd.png"></p>
-<p>我们进入控制台之后我们检查一下node的版本</p>
+
+<h2 id="服务器申请"><a href="#服务器申请" class="headerlink" title="服务器申请"></a>服务器申请</h2><p>我作为一个新用户，可以申请 3 个月免费的试用服务器，我们先通过这个途径进行举例<br><img src="https://kimqueen.github.io/images/project/apply.png"><br>申请后我们会进入到如下的页面<br><img src="https://kimqueen.github.io/images/project/connect.png"><br>我们进行远程连接，然后可以看到如下的页面<br><img src="https://kimqueen.github.io/images/project/cmd.png"></p>
+<p>我们进入控制台之后我们检查一下<code>node</code>的版本</p>
+<figure class="highlight cmd hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">node -v</span><br></pre></td></tr></table></figure>
+
+<p>我们发现服务器上并没有 node，所以这个时候我们需要安装一个<code>node</code>,我们觉得使用<code>nvm进</code>行<code>node</code> 版本的管理更加符合预期,安装我们使用如下的命令</p>
+<figure class="highlight cmd hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.<span class="hljs-number">39</span>.<span class="hljs-number">5</span>/install.sh | bash</span><br></pre></td></tr></table></figure>
+
+<p>安装成功之后，我们需要重新执行一下配置文件，让<code>nvm</code>的命令生效</p>
+<figure class="highlight cmd hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">source ~/.bashrc</span><br></pre></td></tr></table></figure>
+
+<p>然后我们使用<code>nvm</code> 安装一下<code>node</code></p>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nvm install node</span><br></pre></td></tr></table></figure>
+
+<p>然后我们查看一下我们的<code>node</code> 版本，发现我们的 node 版本是<code>v21.1.0</code><br>然后让我们来试一下 node</p>
+<figure class="highlight cmd hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">node</span><br></pre></td></tr></table></figure>
+
+<p>然后执行一下</p>
+<figure class="highlight js hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-built_in">console</span>.log(<span class="hljs-string">"hello kim"</span>);</span><br></pre></td></tr></table></figure>
+
+<p>发现逻辑上面没有任何问题，截止到上面我们发现 node 在服务器上面的环境已经是没有任何的问题了</p>
+<p>我们写一个简单的项目，可以运行的，然后将他达成一个压缩包如:<code>dist.zip</code><br>然后我们在本地的路径下找到这个文件，确保我们的电脑有 ssh 的命令,使用命令</p>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">scp -r ./dist.zip  root@XXXX:/root</span><br></pre></td></tr></table></figure>
+
+<p>其中 XXXX 为公网服务器的地址，回车后会要求输入密码，我传输到 root 的目录下</p>
+<p>我们回到服务器上，通过 ll 命令发现已经有了 dist.zip 文件了，这个时候我们需要通过 unzip 对其进行解压</p>
+<figure class="highlight cmd hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">unzip dist.zip</span><br></pre></td></tr></table></figure>
+
+<p>使用 ngix 进行部署</p>
+<figure class="highlight cmd hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">yum install openssl</span><br><span class="line">yum install zlib</span><br><span class="line">yum install pcre</span><br></pre></td></tr></table></figure>
+
+<p>使用 yum 安装 nginx 需要包括 Nginx 的库，安装 Nginx 的库</p>
+<figure class="highlight cmd hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">rpm -Uvh http://nginx.org/packages/centos/<span class="hljs-number">7</span>/noarch/RPMS/nginx-release-centos-<span class="hljs-number">7</span>-<span class="hljs-number">0</span>.el7.ngx.noarch.rpm</span><br></pre></td></tr></table></figure>
+
+<p>使用下面命令安装 nginx</p>
+<figure class="highlight cmd hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum install nginx</span><br></pre></td></tr></table></figure>
+
+<p>使用命令启动 nginx</p>
+<figure class="highlight cmd hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">systemctl <span class="hljs-built_in">start</span> nginx</span><br></pre></td></tr></table></figure>
+
+<p>这个时候我们查看自己的公网就可以看到 ip 地址了<br>修改文件的命令如下</p>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vim  /etc/nginx/nginx.conf</span><br></pre></td></tr></table></figure>
+
+<p>当我们发现我们的部署结果是 403 的时候，我们可以考虑是自己的 user 写错了，我改成自己的 user root</p>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">user root;</span><br></pre></td></tr></table></figure>
+
+<p>其中里面的 server 的配置如下：</p>
+<figure class="highlight cmd hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">server &#123;</span><br><span class="line">   # listen       <span class="hljs-number">80</span> default_server;</span><br><span class="line">   # listen       [::]:<span class="hljs-number">80</span> default_server;</span><br><span class="line">     listen       <span class="hljs-number">80</span>;</span><br><span class="line">     server_name  <span class="hljs-number">8</span>.<span class="hljs-number">140</span>.<span class="hljs-number">198</span>.<span class="hljs-number">156</span>;</span><br><span class="line">   # server_name  _;</span><br><span class="line">   # root         /usr/share/nginx/html;</span><br><span class="line">     root         /root/dist/index.html;</span><br><span class="line">   # Load configuration files <span class="hljs-keyword">for</span> the default server block.</span><br><span class="line">     include /etc/nginx/default.d/*.conf;</span><br><span class="line"></span><br><span class="line">    location / &#123;</span><br><span class="line">      root   /root/dist;</span><br><span class="line">      index  index.html index.htm;</span><br><span class="line">      try_files $uri $uri/ @router;</span><br><span class="line">      &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>然后我们需要跑一下如下命令，确定自己的config 文件没有改错</p>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nginx -t</span><br></pre></td></tr></table></figure>
+
+<p>然后我们重启nginx 服务，确保我们的配置已经变更生效</p>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nginx -s reload</span><br></pre></td></tr></table></figure>
+
 
         </div>
         
