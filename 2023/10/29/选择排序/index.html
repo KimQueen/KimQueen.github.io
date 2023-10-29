@@ -2,25 +2,25 @@
 <html lang="zh">
 <head><meta name="generator" content="Hexo 3.9.0">
     <meta charset="utf-8">
-<title>async/await原理 - Kim</title>
+<title>选择排序 - Kim</title>
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
 
 
-    <meta name="description" content="我们都知道async/await是Generator函数的语法糖，为了更加深刻的了解async/await的原理，我们先来研究一下Generator的相关的知识。">
-<meta name="keywords" content="前端,异步">
+    <meta name="description" content="选择排序是一种简单的直观的排序算法，无论多少数据进行选择排序，都是O(n²) 的时间复杂度，所以在使用这个算法的时候，最好是数据规模越小越好，这个算法唯一的好处就是不占用内存空间">
+<meta name="keywords" content="前端,算法">
 <meta property="og:type" content="article">
-<meta property="og:title" content="async&#x2F;await原理">
-<meta property="og:url" content="https://kimqueen.github.io/kim.github.io/2020/11/01/async-await/index.html">
+<meta property="og:title" content="选择排序">
+<meta property="og:url" content="https://kimqueen.github.io/kim.github.io/2023/10/29/选择排序/index.html">
 <meta property="og:site_name" content="Kim">
-<meta property="og:description" content="我们都知道async/await是Generator函数的语法糖，为了更加深刻的了解async/await的原理，我们先来研究一下Generator的相关的知识。">
+<meta property="og:description" content="选择排序是一种简单的直观的排序算法，无论多少数据进行选择排序，都是O(n²) 的时间复杂度，所以在使用这个算法的时候，最好是数据规模越小越好，这个算法唯一的好处就是不占用内存空间">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:image" content="https://kimqueen.github.io/images/color.jpg">
-<meta property="og:updated_time" content="2020-11-01T02:00:00.000Z">
+<meta property="og:image" content="https://kimqueen.github.io/images/food.jpg">
+<meta property="og:updated_time" content="2023-10-29T11:00:00.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="async&#x2F;await原理">
-<meta name="twitter:description" content="我们都知道async/await是Generator函数的语法糖，为了更加深刻的了解async/await的原理，我们先来研究一下Generator的相关的知识。">
-<meta name="twitter:image" content="https://kimqueen.github.io/images/color.jpg">
+<meta name="twitter:title" content="选择排序">
+<meta name="twitter:description" content="选择排序是一种简单的直观的排序算法，无论多少数据进行选择排序，都是O(n²) 的时间复杂度，所以在使用这个算法的时候，最好是数据规模越小越好，这个算法唯一的好处就是不占用内存空间">
+<meta name="twitter:image" content="https://kimqueen.github.io/images/food.jpg">
 
 
 
@@ -94,7 +94,7 @@
         <div class="navbar-brand is-flex-center">
             <a class="navbar-item navbar-logo" href="/">
             
-                <img src="/images/logo.png" alt="async/await原理" height="28">
+                <img src="/images/logo.png" alt="选择排序" height="28">
             
             </a>
         </div>
@@ -147,7 +147,7 @@
     
     <div class="card-image">
         <span class="image is-7by1">
-            <img class="thumbnail" src="/images/color.jpg" alt="async/await原理">
+            <img class="thumbnail" src="/images/food.jpg" alt="选择排序">
         </span>
     </div>
     
@@ -155,17 +155,17 @@
         
         <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
             <div class="level-left">
-                <time class="level-item has-text-grey" datetime="2020-11-01T02:00:00.000Z">2020-11-01</time>
+                <time class="level-item has-text-grey" datetime="2023-10-29T11:00:00.000Z">2023-10-29</time>
                 
                 <div class="level-item">
-                <a class="has-link-grey -link" href="/categories/重学前端/">重学前端</a>
+                <a class="has-link-grey -link" href="/categories/算法/">算法</a>
                 </div>
                 
                 
                 <span class="level-item has-text-grey">
                     
                     
-                    15 分钟 读完 (大约 2182 个字)
+                    2 分钟 读完 (大约 328 个字)
                 </span>
                 
                 
@@ -174,91 +174,31 @@
         
         <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
             
-                async/await原理
+                选择排序
             
         </h1>
         <div class="content">
-            <p>我们都知道<code>async/await</code>是<code>Generator</code>函数的语法糖，为了更加深刻的了解<code>async/await</code>的原理，我们先来研究一下<code>Generator</code>的相关的知识。</p>
+            <p>选择排序是一种简单的直观的排序算法，无论多少数据进行选择排序，都是<code>O(n²)</code> 的时间复杂度，所以在使用这个算法的时候，最好是数据规模越小越好，这个算法唯一的好处就是不占用内存空间</p>
 <a id="more"></a>
-<h2 id="基本概念"><a href="#基本概念" class="headerlink" title="基本概念"></a>基本概念</h2><p><code>Generator</code>：可以被认为是一个状态机，其内部封装了多个内部的状态。执行该函数会返回一个遍历器对象，也就是，<code>Generator</code>函数除了状态，还是一个遍历器对象生成函数，返回的遍历器对象，可以依次遍历<code>Generator</code>内部的每一个状态。</p>
-<p>函数特征：</p>
+<p>问题：<br>假设我们现在给一个数组进行排序，排序的结果是将数据从小到大进行排序，我们如何使用选择排序进行排序呢？</p>
+<p>思路：</p>
 <ul>
-<li><code>function</code>关键字与函数名之间有一个星号</li>
-<li>函数内部使用<code>yield</code>表达式，定义不同的内部状态</li>
+<li>首先我们对这个未排序的数组，找到最小的元素，让后记住它的index，将其存放在数组的起始位置</li>
+<li>再从剩下的数组中找到最小的元素，放在已经排序的序列的尾部</li>
+<li>再重复第二步的步骤，直到将所有的位置都排序完成</li>
 </ul>
-<figure class="highlight javascript hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-function"><span class="hljs-keyword">function</span>* <span class="hljs-title">foo</span>(<span class="hljs-params"></span>)</span>&#123;</span><br><span class="line">  <span class="hljs-keyword">yield</span> <span class="hljs-string">'hello'</span>;</span><br><span class="line">  <span class="hljs-keyword">yield</span> <span class="hljs-string">'word'</span>;</span><br><span class="line">  <span class="hljs-keyword">return</span> <span class="hljs-string">'ending'</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="hljs-keyword">var</span> hw = foo();</span><br></pre></td></tr></table></figure>
+<p>代码展示</p>
+<figure class="highlight javascript hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">selectionSort</span>(<span class="hljs-params">arr</span>) </span>&#123;</span><br><span class="line">    <span class="hljs-keyword">let</span> len = arr.length;</span><br><span class="line">    <span class="hljs-keyword">let</span> minIndex, temp;</span><br><span class="line">    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">let</span> i = <span class="hljs-number">0</span>; i &lt; len - <span class="hljs-number">1</span>; i++) &#123;</span><br><span class="line">        minIndex = i;</span><br><span class="line">        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">let</span> j = i + <span class="hljs-number">1</span>; j &lt; len; j++) &#123;</span><br><span class="line">            <span class="hljs-keyword">if</span> (arr[j] &lt; arr[minIndex]) &#123;     <span class="hljs-comment">// 寻找最小的数</span></span><br><span class="line">                minIndex = j;                 <span class="hljs-comment">// 将最小数的索引保存</span></span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        temp = arr[i]; <span class="hljs-comment">// 将数据进行交换</span></span><br><span class="line">        arr[i] = arr[minIndex];</span><br><span class="line">        arr[minIndex] = temp;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="hljs-keyword">return</span> arr;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<p>上面的代码定义了一个<code>Generator</code>函数，内部由两个<code>yield</code>表达式(<code>hello</code>和<code>world</code>),即将执行的函数有三个状态：<code>hello</code>,<code>world</code>和<code>return</code>语句。</p>
-<p><code>Generator</code>函数调用和普通函数的调用是一样的，也是在函数名后面加上一对圆括号。但是调用<code>Generator</code>调用之后并不执行，返回的也不是函数运行结果，而是指向内部状态的指针对象，也就是上面说的遍历器对象。下一步必须调用遍历对象的<code>next</code>方法，让指针指向下一个状态，也就是说，每一次调用<code>next</code>方法，内部指针就会从函数头或是上一次停下来的地方开始执行，直到遇到下一个<code>yield</code>表达式为止。换言之，<code>Generator</code> 函数是分段执行的，<code>yield</code>表达式是暂停执行的标记，而<code>next</code>方法可以恢复执行。</p>
-<figure class="highlight javascript hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">hw.next()</span><br><span class="line"><span class="hljs-comment">// &#123; value: 'hello', done: false &#125;</span></span><br><span class="line"></span><br><span class="line">hw.next()</span><br><span class="line"><span class="hljs-comment">// &#123; value: 'world', done: false &#125;</span></span><br><span class="line"></span><br><span class="line">hw.next()</span><br><span class="line"><span class="hljs-comment">// &#123; value: 'ending', done: true &#125;</span></span><br><span class="line"></span><br><span class="line">hw.next()</span><br><span class="line"><span class="hljs-comment">// &#123; value: undefined, done: true &#125;</span></span><br></pre></td></tr></table></figure>
+<p>对于运行时间，对于普通查找，时间复杂度是 O(n^2)</p>
 
-<p><code>done</code>属性的值<code>false</code>，表示遍历还没有结束。否则表示遍历已经结束啦。</p>
-<p>第四次调用，此时 <code>Generator</code> 函数已经运行完毕，<code>next</code>方法返回对象的<code>value</code>属性为<code>undefined</code>，<code>done</code>属性为<code>true</code>。以后再调用<code>next</code>方法，返回的都是这个值。</p>
-<p>在这个过程中，最重要的是<code>next</code>的方法的运行逻辑，下面我们对这个过程进行一下梳理：</p>
-<ul>
-<li>遇到<code>yield</code>表达式，先暂停后面的操作，将紧跟着<code>yield</code>后面的表达式的值，作为返回对象的<code>value</code>属性值进行返回</li>
-<li>下一次调用<code>next</code>方法的时候，再继续往下执行，知道遇到下一个<code>yield</code>表达式。</li>
-<li>如果没有遇到新的<code>yield</code>表达式，就一直运行直到函数结束，直到<code>return</code>语句为止，并将<code>return</code>语句后面的表达式的值，作为返回的对象的<code>value</code>属性值。</li>
-<li>如果没有遇到<code>return</code>语句，就会返回对象的<code>value</code>属性值为<code>undefined</code>。</li>
-</ul>
-<p><code>yield</code>表达式与<code>return</code>语句既有相似之处，也有区别。相似之处在于，都能返回紧跟在语句后面的那个表达式的值。区别在于每次遇到<code>yield</code>，函数暂停执行，下一次再从该位置继续向后执行，而<code>return</code>语句不具备位置记忆的功能。一个函数里面，只能执行一次（或者说一个）<code>return</code>语句，但是可以执行多次（或者说多个）<code>yield</code>表达式。</p>
-<h3 id="异步操作的同步化表达"><a href="#异步操作的同步化表达" class="headerlink" title="异步操作的同步化表达"></a>异步操作的同步化表达</h3><p>我们举一个例子来实现将异步的操作同步化：过 <code>Generator</code> 函数部署 Ajax 操作，可以用同步的方式表达。</p>
-<figure class="highlight javascript hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-function"><span class="hljs-keyword">function</span>* <span class="hljs-title">main</span>(<span class="hljs-params"></span>) </span>&#123;</span><br><span class="line">  <span class="hljs-keyword">var</span> result = <span class="hljs-keyword">yield</span> request(<span class="hljs-string">"http://some.url"</span>);</span><br><span class="line">  <span class="hljs-keyword">var</span> resp = <span class="hljs-built_in">JSON</span>.parse(result);</span><br><span class="line">    <span class="hljs-built_in">console</span>.log(resp.value);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">request</span>(<span class="hljs-params">url</span>) </span>&#123;</span><br><span class="line">  makeAjaxCall(url, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">response</span>)</span>&#123;</span><br><span class="line">    it.next(response);</span><br><span class="line">  &#125;);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="hljs-keyword">var</span> it = main();</span><br><span class="line">it.next();</span><br></pre></td></tr></table></figure>
-
-<p><code>makeAjaxCall</code>函数中的<code>next</code>方法，必须加上<code>response</code>参数，因为<code>yield</code>表达式，本身是没有值的，总是等于<code>undefined</code>。</p>
-<h2 id="Generator-函数的异步应用"><a href="#Generator-函数的异步应用" class="headerlink" title="Generator 函数的异步应用"></a>Generator 函数的异步应用</h2><p>ES6诞生以来主要实现异步编程的方法有如下的四种：</p>
-<ul>
-<li>回调函数 – 回调地狱</li>
-<li>事件监听</li>
-<li>发布订阅</li>
-<li>Promise 对象 – 代码冗余<h3 id="回调函数"><a href="#回调函数" class="headerlink" title="回调函数"></a>回调函数</h3><code>JavaScript</code>语言对异步编程的实现，就是回调函数，回调函数，就是把任务的第二阶段单独写在一个函数中，等待重新执行这个任务的时候，就直接调用这个函数，回调函数的英文名字就是<code>callback</code>,直接翻译过来就是”重新调用”<figure class="highlight javascript hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">fs.readFile(<span class="hljs-string">'/etc/passwd'</span>, <span class="hljs-string">'utf-8'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">err, data</span>) </span>&#123;</span><br><span class="line">  <span class="hljs-keyword">if</span> (err) <span class="hljs-keyword">throw</span> err;</span><br><span class="line">  <span class="hljs-built_in">console</span>.log(data);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
-
-</li>
-</ul>
-<p><code>readFile</code>函数的第三个参数，就是回调函数，也就是任务的第二段。等到操作系统返回了<code>/etc/passwd</code>这个文件以后，回调函数才会执行。</p>
-<h3 id="Promise"><a href="#Promise" class="headerlink" title="Promise"></a>Promise</h3><p>回调函数本身并没有问题，它的问题出现在多个回调函数嵌套。假定读取<code>A</code>文件之后，再读取<code>B</code>文件，代码如下。</p>
-<figure class="highlight javascript hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">fs.readFile(fileA, <span class="hljs-string">'utf-8'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">err, data</span>) </span>&#123;</span><br><span class="line">  fs.readFile(fileB, <span class="hljs-string">'utf-8'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">err, data</span>) </span>&#123;</span><br><span class="line">    <span class="hljs-comment">// ...</span></span><br><span class="line">  &#125;);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
-
-<p>会出现多重回调的情况，进而造成代码的可读性变差，形成<code>回调地狱(&#39;callback hell&#39;)</code></p>
-<p><code>Promise</code>对象就是为了解决这个问题而提出的。它不是新的语法功能，而是一种新的写法，允许将回调函数的嵌套，改成链式调用。采用 <code>Promise</code>，连续读取多个文件，</p>
-<figure class="highlight javascript hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-keyword">var</span> readFile = <span class="hljs-built_in">require</span>(<span class="hljs-string">'fs-readfile-promise'</span>);</span><br><span class="line"></span><br><span class="line">readFile(fileA)</span><br><span class="line">.then(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">data</span>) </span>&#123;</span><br><span class="line">  <span class="hljs-built_in">console</span>.log(data.toString());</span><br><span class="line">&#125;)</span><br><span class="line">.then(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>&#123;</span><br><span class="line">  <span class="hljs-keyword">return</span> readFile(fileB);</span><br><span class="line">&#125;)</span><br><span class="line">.then(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">data</span>) </span>&#123;</span><br><span class="line">  <span class="hljs-built_in">console</span>.log(data.toString());</span><br><span class="line">&#125;)</span><br><span class="line">.catch(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">err</span>) </span>&#123;</span><br><span class="line">  <span class="hljs-built_in">console</span>.log(err);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
-
-<p><code>Promise</code>的最大问题是代码冗余，原来的任务被<code>Promise</code>包装了一下，不管什么操作，一眼看去都是一堆<code>then</code>，原来的语义变得很不清楚。</p>
-<h3 id="Generator-函数"><a href="#Generator-函数" class="headerlink" title="Generator 函数"></a>Generator 函数</h3><p>协程有点像函数，又有点像线程。它的运行流程大致如下。</p>
-<ul>
-<li>协程<code>A</code>开始执行。</li>
-<li>协程<code>A</code>执行到一半，进入暂停，执行权转移到协程<code>B</code>。</li>
-<li>（一段时间后）协程B交还执行权。</li>
-<li>协程<code>A</code>恢复执行。</li>
-</ul>
-<p><code>Generator</code> 函数是协程在<code>ES6</code> 的实现，最大特点就是可以交出函数的执行权，下面看看如何使用 <code>Generator</code>函数，执行一个真实的异步任务。</p>
-<figure class="highlight javascript hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-keyword">var</span> fetch = <span class="hljs-built_in">require</span>(<span class="hljs-string">'node-fetch'</span>);</span><br><span class="line"></span><br><span class="line"><span class="hljs-function"><span class="hljs-keyword">function</span>* <span class="hljs-title">gen</span>(<span class="hljs-params"></span>)</span>&#123;</span><br><span class="line">  <span class="hljs-keyword">var</span> url = <span class="hljs-string">'https://api.github.com/users/github'</span>;</span><br><span class="line">  <span class="hljs-keyword">var</span> result = <span class="hljs-keyword">yield</span> fetch(url);</span><br><span class="line">  <span class="hljs-built_in">console</span>.log(result.bio);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="hljs-keyword">var</span> g = gen();</span><br><span class="line"><span class="hljs-keyword">var</span> result = g.next();</span><br><span class="line"></span><br><span class="line">result.value.then(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">data</span>)</span>&#123;</span><br><span class="line">  <span class="hljs-keyword">return</span> data.json();</span><br><span class="line">&#125;).then(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">data</span>)</span>&#123;</span><br><span class="line">  g.next(data);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
-
-<h2 id="async-await"><a href="#async-await" class="headerlink" title="async/await"></a>async/await</h2><p>前文有一个<code>Generator</code> 函数，依次读取两个文件。</p>
-<figure class="highlight javascript hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-keyword">const</span> fs = <span class="hljs-built_in">require</span>(<span class="hljs-string">'fs'</span>);</span><br><span class="line"></span><br><span class="line"><span class="hljs-keyword">const</span> readFile = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">fileName</span>) </span>&#123;</span><br><span class="line">  <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">Promise</span>(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">resolve, reject</span>) </span>&#123;</span><br><span class="line">    fs.readFile(fileName, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">error, data</span>) </span>&#123;</span><br><span class="line">      <span class="hljs-keyword">if</span> (error) <span class="hljs-keyword">return</span> reject(error);</span><br><span class="line">      resolve(data);</span><br><span class="line">    &#125;);</span><br><span class="line">  &#125;);</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="hljs-keyword">const</span> gen = <span class="hljs-function"><span class="hljs-keyword">function</span>* (<span class="hljs-params"></span>) </span>&#123;</span><br><span class="line">  <span class="hljs-keyword">const</span> f1 = <span class="hljs-keyword">yield</span> readFile(<span class="hljs-string">'/etc/fstab'</span>);</span><br><span class="line">  <span class="hljs-keyword">const</span> f2 = <span class="hljs-keyword">yield</span> readFile(<span class="hljs-string">'/etc/shells'</span>);</span><br><span class="line">  <span class="hljs-built_in">console</span>.log(f1.toString());</span><br><span class="line">  <span class="hljs-built_in">console</span>.log(f2.toString());</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-
-<p>上面代码的函数<code>gen</code>可以写成<code>async</code>函数，就是下面这样。</p>
-<figure class="highlight javascript hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-keyword">const</span> asyncReadFile = <span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>&#123;</span><br><span class="line">  <span class="hljs-keyword">const</span> f1 = <span class="hljs-keyword">await</span> readFile(<span class="hljs-string">'/etc/fstab'</span>);</span><br><span class="line">  <span class="hljs-keyword">const</span> f2 = <span class="hljs-keyword">await</span> readFile(<span class="hljs-string">'/etc/shells'</span>);</span><br><span class="line">  <span class="hljs-built_in">console</span>.log(f1.toString());</span><br><span class="line">  <span class="hljs-built_in">console</span>.log(f2.toString());</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-
-<p><code>async</code>函数就是将<code>Generator</code>函数的星号<code>（*）</code>替换成<code>async</code>，将<code>yield</code>替换成<code>await</code><br><code>async</code>函数对 <code>Generator</code>函数的改进</p>
-<ul>
-<li>内置执行器。<br>而<code>async</code>函数自带执行器。也就是说，<code>async</code>函数的执行，与普通函数一模一样，只要一行。</li>
-<li>更好的语义<br><code>async</code>和<code>await</code>，比起星号和<code>yield</code>，语义更清楚了。<code>async</code>表示函数里有异步操作，<code>await</code>表示紧跟在后面的表达式需要等待结果。</li>
-<li>更广的适用性。<br><code>yield</code>命令后面只能是 <code>Thunk</code> 函数或 <code>Promise</code>对象，而<code>async</code>函数的<code>await</code>命令后面，可以是<code>Promise</code>对象和原始类型的值（数值、字符串和布尔值，但这时会自动转成立即<code>resolved</code> 的<code>Promise</code>对象）。</li>
-<li>返回值是<code>Promise</code>。
-<code>async</code>函数的返回值是 <code>Promise</code> 对象<h3 id="async-函数的实现原理"><a href="#async-函数的实现原理" class="headerlink" title="async 函数的实现原理"></a>async 函数的实现原理</h3><code>async</code> 函数的实现原理，就是将 <code>Generator</code> 函数和自动执行器，包装在一个函数里。<figure class="highlight javascript hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">fn</span>(<span class="hljs-params">args</span>) </span>&#123;</span><br><span class="line">  <span class="hljs-comment">// ...</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="hljs-comment">// 等同于</span></span><br><span class="line"></span><br><span class="line"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">fn</span>(<span class="hljs-params">args</span>) </span>&#123;</span><br><span class="line">  <span class="hljs-keyword">return</span> spawn(<span class="hljs-function"><span class="hljs-keyword">function</span>* (<span class="hljs-params"></span>) </span>&#123;</span><br><span class="line">    <span class="hljs-comment">// ...</span></span><br><span class="line">  &#125;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-</li>
-</ul>
-<p>所有的<code>async</code>函数都可以写成上面的第二种形式，其中的<code>spawn</code>函数就是自动执行器,我们看一下<code>spawn</code>的执行过程：</p>
-<figure class="highlight javascript hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">spawn</span>(<span class="hljs-params">genF</span>) </span>&#123;</span><br><span class="line">  <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">Promise</span>(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">resolve, reject</span>) </span>&#123;</span><br><span class="line">    <span class="hljs-keyword">const</span> gen = genF();</span><br><span class="line">    <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">step</span>(<span class="hljs-params">nextF</span>) </span>&#123;</span><br><span class="line">      <span class="hljs-keyword">let</span> next;</span><br><span class="line">      <span class="hljs-keyword">try</span> &#123;</span><br><span class="line">        next = nextF();</span><br><span class="line">      &#125; <span class="hljs-keyword">catch</span>(e) &#123;</span><br><span class="line">        <span class="hljs-keyword">return</span> reject(e);</span><br><span class="line">      &#125;</span><br><span class="line">      <span class="hljs-keyword">if</span>(next.done) &#123;</span><br><span class="line">        <span class="hljs-keyword">return</span> resolve(next.value);</span><br><span class="line">      &#125;</span><br><span class="line">      <span class="hljs-built_in">Promise</span>.resolve(next.value).then(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">v</span>) </span>&#123;</span><br><span class="line">        step(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>&#123; <span class="hljs-keyword">return</span> gen.next(v); &#125;);</span><br><span class="line">      &#125;, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">e</span>) </span>&#123;</span><br><span class="line">        step(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>&#123; <span class="hljs-keyword">return</span> gen.throw(e); &#125;);</span><br><span class="line">      &#125;);</span><br><span class="line">    &#125;</span><br><span class="line">    step(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>&#123; <span class="hljs-keyword">return</span> gen.next(<span class="hljs-literal">undefined</span>); &#125;);</span><br><span class="line">  &#125;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
         </div>
         
         <div class="level is-size-7 is-uppercase">
             <div class="level-start">
                 <div class="level-item">
                     <span class="is-size-6 has-text-grey has-mr-7">#</span>
-                    <a class="has-link-grey -link" href="/tags/前端/">前端</a>, <a class="has-link-grey -link" href="/tags/异步/">异步</a>
+                    <a class="has-link-grey -link" href="/tags/前端/">前端</a>, <a class="has-link-grey -link" href="/tags/算法/">算法</a>
                 </div>
             </div>
         </div>
@@ -284,17 +224,10 @@
 <div class="card card-transparent">
     <div class="level post-navigation is-flex-wrap is-mobile">
         
-        <div class="level-start">
-            <a class="level level-item has-link-grey  article-nav-prev" href="/2020/11/01/antdesign的上传功能使用/">
-                <i class="level-item fas fa-chevron-left"></i>
-                <span class="level-item">antdesign的上传功能使用</span>
-            </a>
-        </div>
-        
         
         <div class="level-end">
-            <a class="level level-item has-link-grey  article-nav-next" href="/2020/11/01/js的节流和防抖/">
-                <span class="level-item">js的节流和防抖</span>
+            <a class="level level-item has-link-grey  article-nav-next" href="/2023/10/28/查找算法/">
+                <span class="level-item">二分查找</span>
                 <i class="level-item fas fa-chevron-right"></i>
             </a>
         </div>
@@ -415,39 +348,7 @@
             <h3 class="menu-label">
                 目录
             </h3>
-            <ul class="menu-list"><li>
-        <a class="is-flex" href="#基本概念">
-        <span class="has-mr-6">1</span>
-        <span>基本概念</span>
-        </a><ul class="menu-list"><li>
-        <a class="is-flex" href="#异步操作的同步化表达">
-        <span class="has-mr-6">1.1</span>
-        <span>异步操作的同步化表达</span>
-        </a></li></ul></li><li>
-        <a class="is-flex" href="#Generator-函数的异步应用">
-        <span class="has-mr-6">2</span>
-        <span>Generator 函数的异步应用</span>
-        </a><ul class="menu-list"><li>
-        <a class="is-flex" href="#回调函数">
-        <span class="has-mr-6">2.1</span>
-        <span>回调函数</span>
-        </a></li><li>
-        <a class="is-flex" href="#Promise">
-        <span class="has-mr-6">2.2</span>
-        <span>Promise</span>
-        </a></li><li>
-        <a class="is-flex" href="#Generator-函数">
-        <span class="has-mr-6">2.3</span>
-        <span>Generator 函数</span>
-        </a></li></ul></li><li>
-        <a class="is-flex" href="#async-await">
-        <span class="has-mr-6">3</span>
-        <span>async/await</span>
-        </a><ul class="menu-list"><li>
-        <a class="is-flex" href="#async-函数的实现原理">
-        <span class="has-mr-6">3.1</span>
-        <span>async 函数的实现原理</span>
-        </a></li></ul></li></ul>
+            
         </div>
     </div>
 </div>
@@ -1069,7 +970,7 @@
             <div class="level-start has-text-centered-mobile">
                 <a class="footer-logo is-block has-mb-6" href="/">
                 
-                    <img src="/images/logo.png" alt="async/await原理" height="28">
+                    <img src="/images/logo.png" alt="选择排序" height="28">
                 
                 </a>
                 <p class="is-size-7">
