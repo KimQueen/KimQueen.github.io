@@ -334,8 +334,8 @@
     <div class="card">
     
     <div class="card-image">
-        <a href="/2020/11/01/webpack-生产环境/" class="image is-7by1">
-            <img class="thumbnail" src="/images/lie.jpg" alt="webpack-生产环境">
+        <a href="/2020/11/01/webpack-模块热替换/" class="image is-7by1">
+            <img class="thumbnail" src="/images/view.jpg" alt="webpack-模块热替换">
         </a>
     </div>
     
@@ -353,7 +353,7 @@
                 <span class="level-item has-text-grey">
                     
                     
-                    3 分钟 读完 (大约 483 个字)
+                    3 分钟 读完 (大约 389 个字)
                 </span>
                 
                 
@@ -362,139 +362,18 @@
         
         <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
             
-                <a class="has-link-black-ter" href="/2020/11/01/webpack-生产环境/">webpack-生产环境</a>
+                <a class="has-link-black-ter" href="/2020/11/01/webpack-模块热替换/">webpack-模块热替换</a>
             
         </h1>
         <div class="content">
-            <p>我们对生产环境和开发环境进行了略微的区分，但是要遵循不重复的原则，所以需要保留一个<code>common</code>的配置，为了讲这些配置合并在一起，需要使用一个工具<code>webpack-merge</code>,此工具会引用 <code>common&quot;</code>配置，因此我们不必再在环境特定(<code>environment-specific</code>)的配置中编写重复代码。</p>
-<h4 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h4><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install --save-dev webpack-merge</span><br></pre></td></tr></table></figure>
+            <h4 id="模块热替换-HMR"><a href="#模块热替换-HMR" class="headerlink" title="模块热替换(HMR)"></a>模块热替换(HMR)</h4><p>这个功能允许在运行时更新所有类型的模块，而不是完全刷新。但是<code>HMR</code>不适合生产环境，也就是说它更加多的应用于开发环境。</p>
         </div>
         
         
         <div class="level is-mobile">
             <div class="level-start">
                 <div class="level-item">
-                <a class="button is-size-7 is-light" href="/2020/11/01/webpack-生产环境/#more">阅读更多</a>
-                </div>
-            </div>
-        </div>
-        
-        
-    </div>
-</div>
-
-
-
-
-
-
-
-
-    <div class="card">
-    
-    <div class="card-image">
-        <a href="/2020/11/01/webpack-管理输出/" class="image is-7by1">
-            <img class="thumbnail" src="/images/tree-1.jpg" alt="webpack-管理输出">
-        </a>
-    </div>
-    
-    <div class="card-content article ">
-        
-        <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
-            <div class="level-left">
-                <time class="level-item has-text-grey" datetime="2020-11-01T02:00:00.000Z">2020-11-01</time>
-                
-                <div class="level-item">
-                <a class="has-link-grey -link" href="/categories/webpack/">webpack</a>
-                </div>
-                
-                
-                <span class="level-item has-text-grey">
-                    
-                    
-                    6 分钟 读完 (大约 884 个字)
-                </span>
-                
-                
-            </div>
-        </div>
-        
-        <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
-            
-                <a class="has-link-black-ter" href="/2020/11/01/webpack-管理输出/">webpack-管理输出</a>
-            
-        </h1>
-        <div class="content">
-            <h4 id="资源输出"><a href="#资源输出" class="headerlink" title="资源输出"></a>资源输出</h4><p>我们先来看一下我们的项目目录，我们新建了一个<code>print.js</code>的项目文档：</p>
-        </div>
-        
-        
-        <div class="level is-mobile">
-            <div class="level-start">
-                <div class="level-item">
-                <a class="button is-size-7 is-light" href="/2020/11/01/webpack-管理输出/#more">阅读更多</a>
-                </div>
-            </div>
-        </div>
-        
-        
-    </div>
-</div>
-
-
-
-
-
-
-
-
-    <div class="card">
-    
-    <div class="card-image">
-        <a href="/2020/11/01/webpack学习之loader/" class="image is-7by1">
-            <img class="thumbnail" src="/images/tree.jpg" alt="webpack学习之loader">
-        </a>
-    </div>
-    
-    <div class="card-content article ">
-        
-        <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
-            <div class="level-left">
-                <time class="level-item has-text-grey" datetime="2020-11-01T02:00:00.000Z">2020-11-01</time>
-                
-                <div class="level-item">
-                <a class="has-link-grey -link" href="/categories/webpack/">webpack</a>
-                </div>
-                
-                
-                <span class="level-item has-text-grey">
-                    
-                    
-                    5 分钟 读完 (大约 697 个字)
-                </span>
-                
-                
-            </div>
-        </div>
-        
-        <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
-            
-                <a class="has-link-black-ter" href="/2020/11/01/webpack学习之loader/">webpack学习之loader</a>
-            
-        </h1>
-        <div class="content">
-            <h4 id="loader的作用"><a href="#loader的作用" class="headerlink" title="loader的作用"></a>loader的作用</h4><p>用来将<code>webpack</code>无法处理的东西。转换成<code>webpack</code>可以处理的东西，<code>webpack</code>理论上只可以处理<code>js</code>的语言。</p>
-<ul>
-<li><code>test:loader</code>用来处理哪些文件，这个部分一般使用正则来表示</li>
-<li><code>use</code>：将满足的条件进行转换的时候，使用的是哪个loader</li>
-</ul>
-        </div>
-        
-        
-        <div class="level is-mobile">
-            <div class="level-start">
-                <div class="level-item">
-                <a class="button is-size-7 is-light" href="/2020/11/01/webpack学习之loader/#more">阅读更多</a>
+                <a class="button is-size-7 is-light" href="/2020/11/01/webpack-模块热替换/#more">阅读更多</a>
                 </div>
             </div>
         </div>
@@ -571,8 +450,8 @@
     <div class="card">
     
     <div class="card-image">
-        <a href="/2020/11/01/webpack-模块热替换/" class="image is-7by1">
-            <img class="thumbnail" src="/images/view.jpg" alt="webpack-模块热替换">
+        <a href="/2020/11/01/webpack-管理输出/" class="image is-7by1">
+            <img class="thumbnail" src="/images/tree-1.jpg" alt="webpack-管理输出">
         </a>
     </div>
     
@@ -590,7 +469,7 @@
                 <span class="level-item has-text-grey">
                     
                     
-                    3 分钟 读完 (大约 389 个字)
+                    6 分钟 读完 (大约 884 个字)
                 </span>
                 
                 
@@ -599,18 +478,140 @@
         
         <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
             
-                <a class="has-link-black-ter" href="/2020/11/01/webpack-模块热替换/">webpack-模块热替换</a>
+                <a class="has-link-black-ter" href="/2020/11/01/webpack-管理输出/">webpack-管理输出</a>
             
         </h1>
         <div class="content">
-            <h4 id="模块热替换-HMR"><a href="#模块热替换-HMR" class="headerlink" title="模块热替换(HMR)"></a>模块热替换(HMR)</h4><p>这个功能允许在运行时更新所有类型的模块，而不是完全刷新。但是<code>HMR</code>不适合生产环境，也就是说它更加多的应用于开发环境。</p>
+            <h4 id="资源输出"><a href="#资源输出" class="headerlink" title="资源输出"></a>资源输出</h4><p>我们先来看一下我们的项目目录，我们新建了一个<code>print.js</code>的项目文档：</p>
         </div>
         
         
         <div class="level is-mobile">
             <div class="level-start">
                 <div class="level-item">
-                <a class="button is-size-7 is-light" href="/2020/11/01/webpack-模块热替换/#more">阅读更多</a>
+                <a class="button is-size-7 is-light" href="/2020/11/01/webpack-管理输出/#more">阅读更多</a>
+                </div>
+            </div>
+        </div>
+        
+        
+    </div>
+</div>
+
+
+
+
+
+
+
+
+    <div class="card">
+    
+    <div class="card-image">
+        <a href="/2020/11/01/webpack-生产环境/" class="image is-7by1">
+            <img class="thumbnail" src="/images/lie.jpg" alt="webpack-生产环境">
+        </a>
+    </div>
+    
+    <div class="card-content article ">
+        
+        <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
+            <div class="level-left">
+                <time class="level-item has-text-grey" datetime="2020-11-01T02:00:00.000Z">2020-11-01</time>
+                
+                <div class="level-item">
+                <a class="has-link-grey -link" href="/categories/webpack/">webpack</a>
+                </div>
+                
+                
+                <span class="level-item has-text-grey">
+                    
+                    
+                    3 分钟 读完 (大约 483 个字)
+                </span>
+                
+                
+            </div>
+        </div>
+        
+        <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
+            
+                <a class="has-link-black-ter" href="/2020/11/01/webpack-生产环境/">webpack-生产环境</a>
+            
+        </h1>
+        <div class="content">
+            <p>我们对生产环境和开发环境进行了略微的区分，但是要遵循不重复的原则，所以需要保留一个<code>common</code>的配置，为了讲这些配置合并在一起，需要使用一个工具<code>webpack-merge</code>,此工具会引用 <code>common&quot;</code>配置，因此我们不必再在环境特定(<code>environment-specific</code>)的配置中编写重复代码。</p>
+<h4 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h4><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install --save-dev webpack-merge</span><br></pre></td></tr></table></figure>
+        </div>
+        
+        
+        <div class="level is-mobile">
+            <div class="level-start">
+                <div class="level-item">
+                <a class="button is-size-7 is-light" href="/2020/11/01/webpack-生产环境/#more">阅读更多</a>
+                </div>
+            </div>
+        </div>
+        
+        
+    </div>
+</div>
+
+
+
+
+
+
+
+
+    <div class="card">
+    
+    <div class="card-image">
+        <a href="/2020/11/01/webpack学习之plugins-entry-output/" class="image is-7by1">
+            <img class="thumbnail" src="/images/green.jpg" alt="webpack学习之plugins,entry,output">
+        </a>
+    </div>
+    
+    <div class="card-content article ">
+        
+        <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
+            <div class="level-left">
+                <time class="level-item has-text-grey" datetime="2020-11-01T02:00:00.000Z">2020-11-01</time>
+                
+                <div class="level-item">
+                <a class="has-link-grey -link" href="/categories/webpack/">webpack</a>
+                </div>
+                
+                
+                <span class="level-item has-text-grey">
+                    
+                    
+                    6 分钟 读完 (大约 850 个字)
+                </span>
+                
+                
+            </div>
+        </div>
+        
+        <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
+            
+                <a class="has-link-black-ter" href="/2020/11/01/webpack学习之plugins-entry-output/">webpack学习之plugins,entry,output</a>
+            
+        </h1>
+        <div class="content">
+            <p>我们先使用两个插件来看一下插件到底是什么？</p>
+<h4 id="html-webpack-plugin"><a href="#html-webpack-plugin" class="headerlink" title="html-webpack-plugin"></a>html-webpack-plugin</h4><p>使用：这个插件运行时在打包结束的时候进行的</p>
+<ul>
+<li>先在项目中安装插件，<code>npm install html-webpack-plugin -D</code></li>
+<li>在<code>webpack.config.js</code>中进行相关插件的配置</li>
+</ul>
+        </div>
+        
+        
+        <div class="level is-mobile">
+            <div class="level-start">
+                <div class="level-item">
+                <a class="button is-size-7 is-light" href="/2020/11/01/webpack学习之plugins-entry-output/#more">阅读更多</a>
                 </div>
             </div>
         </div>
@@ -688,8 +689,8 @@
     <div class="card">
     
     <div class="card-image">
-        <a href="/2020/11/01/webpack学习之devServer/" class="image is-7by1">
-            <img class="thumbnail" src="/images/name.jpg" alt="webpack学习之devServer">
+        <a href="/2020/11/01/webpack学习之loader/" class="image is-7by1">
+            <img class="thumbnail" src="/images/tree.jpg" alt="webpack学习之loader">
         </a>
     </div>
     
@@ -707,7 +708,7 @@
                 <span class="level-item has-text-grey">
                     
                     
-                    3 分钟 读完 (大约 523 个字)
+                    5 分钟 读完 (大约 697 个字)
                 </span>
                 
                 
@@ -716,18 +717,22 @@
         
         <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
             
-                <a class="has-link-black-ter" href="/2020/11/01/webpack学习之devServer/">webpack学习之devServer</a>
+                <a class="has-link-black-ter" href="/2020/11/01/webpack学习之loader/">webpack学习之loader</a>
             
         </h1>
         <div class="content">
-            <p>我们在开发的时候，如果只是进行简单的配置，那么我们每一次修改代码，都要手动的进行打包，然后手动的刷新浏览器，这样的话，开发的效率会很低，所以我们这个时候就要想<code>webpack</code>是否可以为我们提供一种方式让<code>webpack</code>帮助我们完成上面的操作，而不是依靠手动进行处理。</p>
+            <h4 id="loader的作用"><a href="#loader的作用" class="headerlink" title="loader的作用"></a>loader的作用</h4><p>用来将<code>webpack</code>无法处理的东西。转换成<code>webpack</code>可以处理的东西，<code>webpack</code>理论上只可以处理<code>js</code>的语言。</p>
+<ul>
+<li><code>test:loader</code>用来处理哪些文件，这个部分一般使用正则来表示</li>
+<li><code>use</code>：将满足的条件进行转换的时候，使用的是哪个loader</li>
+</ul>
         </div>
         
         
         <div class="level is-mobile">
             <div class="level-start">
                 <div class="level-item">
-                <a class="button is-size-7 is-light" href="/2020/11/01/webpack学习之devServer/#more">阅读更多</a>
+                <a class="button is-size-7 is-light" href="/2020/11/01/webpack学习之loader/#more">阅读更多</a>
                 </div>
             </div>
         </div>
